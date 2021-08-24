@@ -1,0 +1,1006 @@
+Columns are missing in phone_blacklist 
+
+Columns are missing in phone_blacklist_remove 
+
+Columns are missing in product_product 
+
+Columns are missing in product_variant_combination 
+
+Columns are missing in product_template_attribute_value 
+
+Columns are missing in product_packaging 
+
+Columns are missing in product_supplierinfo 
+
+Columns are missing in product_attribute 
+
+Columns are missing in product_attribute_product_template_rel 
+
+Columns are missing in product_attribute_value 
+
+Columns are missing in product_attribute_value_product_template_attribute_line_rel 
+
+Columns are missing in product_template_attribute_line 
+
+Columns are missing in product_template_attribute_exclusion 
+
+Columns are missing in product_attr_exclusion_value_ids_rel 
+
+Columns are missing in res_country_group_pricelist_rel 
+
+Columns are missing in product_pricelist_item 
+
+Columns are missing in product_attribute_custom_value 
+
+Columns are missing in product_pricelist 
+
+Columns are missing in rating_rating 
+
+Columns are missing in team_favorite_user_rel 
+
+Columns are missing in ir_logging 
+
+Columns are missing in crm_tag 
+
+Columns are missing in res_partner_autocomplete_sync 
+
+Columns are missing in portal_share 
+
+Columns are missing in portal_share_res_partner_rel 
+
+Columns are missing in portal_wizard 
+
+Columns are missing in portal_wizard_user 
+
+Columns are missing in mail_message_res_partner_needaction_rel 
+
+Columns are missing in sms_template 
+
+Columns are missing in sms_sms 
+
+Columns are missing in sms_cancel 
+
+Columns are missing in sms_composer 
+
+Columns are missing in sms_resend 
+
+Columns are missing in sms_resend_recipient 
+
+Columns are missing in sms_template_preview 
+
+Columns are missing in snailmail_letter 
+
+Columns are missing in snailmail_letter_cancel 
+
+Columns are missing in snailmail_letter_format_error 
+
+Columns are missing in snailmail_letter_missing_required_fields 
+
+Columns are missing in digest_digest_res_users_rel 
+
+Columns are missing in digest_tip 
+
+Columns are missing in digest_tip_res_users_rel 
+
+Columns are missing in res_users_apikeys 
+
+Columns are missing in res_users 
+
+Columns are missing in res_lang 
+
+Columns are missing in ir_translation 
+
+Columns are missing in res_groups 
+
+Columns are missing in ir_sequence 
+
+Columns are missing in ir_sequence_date_range 
+
+Columns are missing in reset_view_arch_wizard 
+
+Columns are missing in report_paperformat 
+
+Columns are missing in ir_cron 
+
+Columns are missing in ir_filters 
+
+Columns are missing in ir_default 
+
+Columns are missing in ir_exports 
+
+Columns are missing in ir_exports_line 
+
+Columns are missing in ir_rule 
+
+Columns are missing in rule_group_rel 
+
+Columns are missing in ir_config_parameter 
+
+Columns are missing in ir_mail_server 
+
+Columns are missing in ir_property 
+
+Columns are missing in ir_demo 
+
+Columns are missing in ir_demo_failure 
+
+Columns are missing in ir_demo_failure_wizard 
+
+Columns are missing in report_layout 
+
+Columns are missing in res_country 
+
+Columns are missing in res_currency 
+
+Columns are missing in res_country_res_country_group_rel 
+
+Columns are missing in res_country_group 
+
+Columns are missing in res_country_state 
+
+Columns are missing in res_partner_category 
+
+Columns are missing in res_partner_res_partner_category_rel 
+
+Columns are missing in res_partner_title 
+
+Columns are missing in res_partner_industry 
+
+Columns are missing in res_bank 
+
+Columns are missing in res_partner_bank 
+
+Columns are missing in res_config 
+
+Columns are missing in res_config_installer 
+
+Columns are missing in res_currency_rate 
+
+Columns are missing in res_company_users_rel 
+
+Columns are missing in res_groups_users_rel 
+
+Columns are missing in res_groups_implied_rel 
+
+Columns are missing in res_users_log 
+
+Columns are missing in res_users_identitycheck 
+
+Columns are missing in change_password_wizard 
+
+Columns are missing in change_password_user 
+
+Columns are missing in res_users_apikeys_description 
+
+Columns are missing in decimal_precision 
+
+Columns are missing in base_module_update 
+
+Columns are missing in base_language_install 
+
+Columns are missing in base_language_import 
+
+Columns are missing in base_module_upgrade 
+
+Columns are missing in base_module_uninstall 
+
+Columns are missing in base_language_export 
+
+Columns are missing in rel_modules_langexport 
+
+Columns are missing in base_update_translations 
+
+Columns are missing in base_partner_merge_automatic_wizard 
+
+Columns are missing in base_partner_merge_line 
+
+Columns are missing in base_partner_merge_automatic_wizard_res_partner_rel 
+
+Columns are missing in base_document_layout 
+
+Columns are missing in auth_totp_wizard 
+
+Columns are missing in uom_category 
+
+Columns are missing in uom_uom 
+
+Columns are missing in barcode_nomenclature 
+
+Columns are missing in barcode_rule 
+
+Columns are missing in base_import_mapping 
+
+Columns are missing in base_import_import 
+
+Columns are missing in base_import_tests_models_char 
+
+Columns are missing in base_import_tests_models_char_required 
+
+Columns are missing in base_import_tests_models_char_readonly 
+
+Columns are missing in base_import_tests_models_char_states 
+
+Columns are missing in base_import_tests_models_char_noreadonly 
+
+Columns are missing in base_import_tests_models_char_stillreadonly 
+
+Columns are missing in base_import_tests_models_m2o_related 
+
+Columns are missing in base_import_tests_models_m2o 
+
+Columns are missing in base_import_tests_models_m2o_required_related 
+
+Columns are missing in base_import_tests_models_m2o_required 
+
+Columns are missing in base_import_tests_models_o2m 
+
+Columns are missing in base_import_tests_models_o2m_child 
+
+Columns are missing in base_import_tests_models_preview 
+
+Columns are missing in base_import_tests_models_float 
+
+Columns are missing in base_import_tests_models_complex 
+
+Columns are missing in bus_bus 
+
+Columns are missing in bus_presence 
+
+Columns are missing in resource_calendar 
+
+Columns are missing in resource_calendar_attendance 
+
+Columns are missing in resource_resource 
+
+Columns are missing in resource_calendar_leaves 
+
+Columns are missing in resource_test 
+
+Columns are missing in utm_stage 
+
+Columns are missing in utm_medium 
+
+Columns are missing in utm_tag_rel 
+
+Columns are missing in utm_tag 
+
+Columns are missing in utm_source 
+
+Columns are missing in web_editor_converter_test_sub 
+
+Columns are missing in web_editor_converter_test 
+
+Columns are missing in web_tour_tour 
+
+Columns are missing in iap_account 
+
+Columns are missing in iap_account_res_company_rel 
+
+Columns are missing in utm_campaign 
+
+Columns are missing in res_partner 
+
+Columns are missing in mail_message_subtype 
+
+Columns are missing in mail_tracking_value 
+
+Columns are missing in mail_message 
+
+Columns are missing in mail_alias 
+
+Columns are missing in mail_followers 
+
+Columns are missing in mail_channel 
+
+Columns are missing in mail_followers_mail_message_subtype_rel 
+
+Columns are missing in message_attachment_rel 
+
+Columns are missing in mail_activity_type 
+
+Columns are missing in mail_message_res_partner_rel 
+
+Columns are missing in mail_message_mail_channel_rel 
+
+Columns are missing in mail_message_res_partner_starred_rel 
+
+Columns are missing in mail_activity_rel 
+
+Columns are missing in mail_activity_type_mail_template_rel 
+
+Columns are missing in mail_template 
+
+Columns are missing in mail_mail_res_partner_rel 
+
+Columns are missing in mail_blacklist 
+
+Columns are missing in mail_channel_partner 
+
+Columns are missing in mail_mail 
+
+Columns are missing in mail_moderation 
+
+Columns are missing in mail_channel_res_groups_rel 
+
+Columns are missing in mail_channel_moderator_rel 
+
+Columns are missing in email_template_attachment_rel 
+
+Columns are missing in mail_shortcode 
+
+Columns are missing in ir_act_server_res_partner_rel 
+
+Columns are missing in ir_act_server_mail_channel_rel 
+
+Columns are missing in mail_wizard_invite 
+
+Columns are missing in mail_wizard_invite_res_partner_rel 
+
+Columns are missing in mail_channel_mail_wizard_invite_rel 
+
+Columns are missing in mail_blacklist_remove 
+
+Columns are missing in mail_compose_message 
+
+Columns are missing in mail_compose_message_ir_attachments_rel 
+
+Columns are missing in mail_compose_message_res_partner_rel 
+
+Columns are missing in mail_resend_cancel 
+
+Columns are missing in mail_resend_message 
+
+Columns are missing in mail_message_res_partner_needaction_rel_mail_resend_message_rel 
+
+Columns are missing in mail_resend_partner 
+
+Columns are missing in mail_template_preview 
+
+Columns are missing in account_analytic_account 
+
+Columns are missing in account_analytic_distribution 
+
+Columns are missing in account_analytic_tag 
+
+Columns are missing in account_analytic_group 
+
+Columns are missing in account_analytic_line_tag_rel 
+
+Columns are missing in calendar_event 
+
+Columns are missing in mail_activity 
+
+Columns are missing in calendar_attendee 
+
+Columns are missing in calendar_recurrence 
+
+Columns are missing in meeting_category_rel 
+
+Columns are missing in calendar_event_type 
+
+Columns are missing in calendar_event_res_partner_rel 
+
+Columns are missing in calendar_alarm_calendar_event_rel 
+
+Columns are missing in calendar_alarm 
+
+Columns are missing in calendar_contacts 
+
+Columns are missing in fetchmail_server 
+
+Columns are missing in account_analytic_line 
+
+Columns are missing in res_company 
+
+Columns are missing in digest_digest 
+
+Columns are missing in account_fiscal_position 
+
+Columns are missing in account_fiscal_position_res_country_state_rel 
+
+Columns are missing in account_fiscal_position_tax 
+
+Columns are missing in account_tax 
+
+Columns are missing in account_fiscal_position_account 
+
+Columns are missing in account_account_tag 
+
+Columns are missing in account_tax_report_line_tags_rel 
+
+Columns are missing in account_tax_report_line 
+
+Columns are missing in account_account_type 
+
+Columns are missing in account_account_tax_default_rel 
+
+Columns are missing in account_account_account_tag 
+
+Columns are missing in account_group 
+
+Columns are missing in account_account_account_journal_rel 
+
+Columns are missing in account_journal_group 
+
+Columns are missing in account_journal_account_journal_group_rel 
+
+Columns are missing in journal_account_type_control_rel 
+
+Columns are missing in journal_account_control_rel 
+
+Columns are missing in account_journal_inbound_payment_method_rel 
+
+Columns are missing in account_payment_method 
+
+Columns are missing in account_journal_outbound_payment_method_rel 
+
+Columns are missing in account_tax_group 
+
+Columns are missing in account_tax_filiation_rel 
+
+Columns are missing in account_tax_repartition_line 
+
+Columns are missing in account_account_tag_account_tax_repartition_line_rel 
+
+Columns are missing in account_tax_report 
+
+Columns are missing in account_reconcile_model 
+
+Columns are missing in account_reconcile_model_partner_mapping 
+
+Columns are missing in account_reconcile_model_line 
+
+Columns are missing in account_reconcile_model_line_account_tax_rel 
+
+Columns are missing in account_reconcile_model_analytic_tag_rel 
+
+Columns are missing in account_journal_account_reconcile_model_rel 
+
+Columns are missing in account_reconcile_model_res_partner_rel 
+
+Columns are missing in account_reconcile_model_res_partner_category_rel 
+
+Columns are missing in account_payment_term 
+
+Columns are missing in account_payment_term_line 
+
+Columns are missing in account_partial_reconcile 
+
+Columns are missing in account_incoterms 
+
+Columns are missing in account_cash_rounding 
+
+Columns are missing in account_bank_statement 
+
+Columns are missing in account_move_line_account_tax_rel 
+
+Columns are missing in account_account_tag_account_move_line_rel 
+
+Columns are missing in account_full_reconcile 
+
+Columns are missing in account_analytic_tag_account_move_line_rel 
+
+Columns are missing in account_analytic_default 
+
+Columns are missing in account_analytic_default_account_analytic_tag_rel 
+
+Columns are missing in account_bank_statement_cashbox 
+
+Columns are missing in account_cashbox_line 
+
+Columns are missing in account_bank_statement_closebalance 
+
+Columns are missing in account_payment_account_bank_statement_line_rel 
+
+Columns are missing in account_group_template 
+
+Columns are missing in account_account_template 
+
+Columns are missing in account_chart_template 
+
+Columns are missing in account_payment 
+
+Columns are missing in account_move_line 
+
+Columns are missing in account_account_template_tax_rel 
+
+Columns are missing in account_tax_template 
+
+Columns are missing in account_account_template_account_tag 
+
+Columns are missing in account_tax_template_filiation_rel 
+
+Columns are missing in account_tax_repartition_line_template 
+
+Columns are missing in account_tax_repartition_financial_tags 
+
+Columns are missing in account_tax_repartition_plus_report_line 
+
+Columns are missing in account_tax_repartition_minus_report_line 
+
+Columns are missing in account_fiscal_position_template 
+
+Columns are missing in account_fiscal_position_template_res_country_state_rel 
+
+Columns are missing in account_fiscal_position_tax_template 
+
+Columns are missing in account_fiscal_position_account_template 
+
+Columns are missing in account_reconcile_model_template 
+
+Columns are missing in account_journal_account_reconcile_model_template_rel 
+
+Columns are missing in account_reconcile_model_template_res_partner_rel 
+
+Columns are missing in account_reconcile_model_template_res_partner_category_rel 
+
+Columns are missing in account_reconcile_model_line_template 
+
+Columns are missing in account_reconcile_model_line_template_account_tax_template_rel 
+
+Columns are missing in product_taxes_rel 
+
+Columns are missing in product_supplier_taxes_rel 
+
+Columns are missing in account_automatic_entry_wizard 
+
+Columns are missing in account_automatic_entry_wizard_account_move_line_rel 
+
+Columns are missing in account_unreconcile 
+
+Columns are missing in validate_account_move 
+
+Columns are missing in cash_box_out 
+
+Columns are missing in account_move_reversal 
+
+Columns are missing in account_move_reversal_move 
+
+Columns are missing in account_move_reversal_new_move 
+
+Columns are missing in account_common_report 
+
+Columns are missing in account_common_report_account_journal_rel 
+
+Columns are missing in account_common_journal_report 
+
+Columns are missing in account_common_journal_report_account_journal_rel 
+
+Columns are missing in account_print_journal 
+
+Columns are missing in account_journal_account_print_journal_rel 
+
+Columns are missing in account_resequence_wizard 
+
+Columns are missing in account_move_account_resequence_wizard_rel 
+
+Columns are missing in account_financial_year_op 
+
+Columns are missing in account_setup_bank_manual_config 
+
+Columns are missing in tax_adjustments_wizard 
+
+Columns are missing in account_move_account_invoice_send_rel 
+
+Columns are missing in account_payment_register_move_line_rel 
+
+Columns are missing in account_tour_upload_bill 
+
+Columns are missing in account_tour_upload_bill_email_confirm 
+
+Columns are missing in account_payment_register 
+
+Columns are missing in crm_team 
+
+Columns are missing in crm_stage 
+
+Columns are missing in crm_tag_rel 
+
+Columns are missing in crm_recurring_plan 
+
+Columns are missing in crm_lost_reason 
+
+Columns are missing in crm_lead_scoring_frequency 
+
+Columns are missing in crm_lead_scoring_frequency_field 
+
+Columns are missing in crm_lead_lost 
+
+Columns are missing in crm_lead2opportunity_partner 
+
+Columns are missing in crm_lead_crm_lead2opportunity_partner_rel 
+
+Columns are missing in crm_lead2opportunity_partner_mass 
+
+Columns are missing in crm_convert_lead_mass_lead_rel 
+
+Columns are missing in crm_lead2opportunity_partner_mass_res_users_rel 
+
+Columns are missing in crm_lead_crm_lead2opportunity_partner_mass_rel 
+
+Columns are missing in crm_merge_opportunity 
+
+Columns are missing in merge_opportunity_rel 
+
+Columns are missing in crm_lead 
+
+Columns are missing in product_template 
+
+Columns are missing in product_category 
+
+Columns are missing in product_removal 
+
+Columns are missing in stock_putaway_rule 
+
+Columns are missing in stock_inventory_stock_location_rel 
+
+Columns are missing in product_product_stock_inventory_rel 
+
+Columns are missing in stock_inventory_line 
+
+Columns are missing in stock_quant_package 
+
+Columns are missing in stock_production_lot 
+
+Columns are missing in stock_route_product 
+
+Columns are missing in stock_location_route_categ 
+
+Columns are missing in stock_route_warehouse 
+
+Columns are missing in stock_move_move_rel 
+
+Columns are missing in stock_rule 
+
+Columns are missing in stock_picking_type 
+
+Columns are missing in stock_location_route_move 
+
+Columns are missing in stock_package_level 
+
+Columns are missing in stock_move_line 
+
+Columns are missing in stock_move_line_consume_rel 
+
+Columns are missing in stock_quant 
+
+Columns are missing in stock_wh_resupply_table 
+
+Columns are missing in stock_scrap 
+
+Columns are missing in stock_traceability_report 
+
+Columns are missing in stock_assign_serial 
+
+Columns are missing in stock_return_picking 
+
+Columns are missing in stock_change_product_qty 
+
+Columns are missing in stock_scheduler_compute 
+
+Columns are missing in stock_immediate_transfer 
+
+Columns are missing in stock_immediate_transfer_line 
+
+Columns are missing in stock_picking_transfer_rel 
+
+Columns are missing in stock_backorder_confirmation 
+
+Columns are missing in stock_backorder_confirmation_line 
+
+Columns are missing in stock_picking_backorder_rel 
+
+Columns are missing in stock_quantity_history 
+
+Columns are missing in stock_rules_report 
+
+Columns are missing in stock_rules_report_stock_warehouse_rel 
+
+Columns are missing in stock_warn_insufficient_qty_scrap 
+
+Columns are missing in product_replenish 
+
+Columns are missing in product_replenish_stock_location_route_rel 
+
+Columns are missing in stock_track_confirmation 
+
+Columns are missing in stock_track_line 
+
+Columns are missing in stock_location_route 
+
+Columns are missing in stock_warehouse 
+
+Columns are missing in stock_warehouse_orderpoint 
+
+Columns are missing in procurement_group 
+
+Columns are missing in stock_picking 
+
+Columns are missing in stock_package_destination 
+
+Columns are missing in stock_orderpoint_snooze 
+
+Columns are missing in stock_orderpoint_snooze_stock_warehouse_orderpoint_rel 
+
+Columns are missing in ir_attachment 
+
+Columns are missing in ir_ui_view 
+
+Columns are missing in account_root 
+
+Columns are missing in theme_ir_attachment 
+
+Columns are missing in website_country_group_rel 
+
+Columns are missing in website_lang_rel 
+
+Columns are missing in website_page 
+
+Columns are missing in website_menu 
+
+Columns are missing in res_groups_website_menu_rel 
+
+Columns are missing in theme_website_menu 
+
+Columns are missing in theme_website_page 
+
+Columns are missing in website_route 
+
+Columns are missing in website_rewrite 
+
+Columns are missing in theme_ir_ui_view 
+
+Columns are missing in website_visitor 
+
+Columns are missing in website_snippet_filter 
+
+Columns are missing in base_language_install_website_rel 
+
+Columns are missing in website_robots 
+
+Columns are missing in account_fiscal_year 
+
+Columns are missing in account_change_lock_date 
+
+Columns are missing in account_move 
+
+Columns are missing in account_edi_format_account_journal_rel 
+
+Columns are missing in account_edi_format 
+
+Columns are missing in account_edi_document 
+
+Columns are missing in account_online_provider 
+
+Columns are missing in account_invoice_extract_words 
+
+Columns are missing in account_journal 
+
+Columns are missing in account_bank_statement_line 
+
+Columns are missing in account_online_link_wizard 
+
+Columns are missing in account_online_wizard 
+
+Columns are missing in account_online_journal 
+
+Columns are missing in coupon_reward 
+
+Columns are missing in coupon_reward_product_product_rel 
+
+Columns are missing in coupon_rule 
+
+Columns are missing in coupon_generate_wizard 
+
+Columns are missing in crm_activity_report 
+
+Columns are missing in coupon_coupon 
+
+Columns are missing in coupon_program 
+
+Columns are missing in payment_country_rel 
+
+Columns are missing in payment_acquirer_payment_icon_rel 
+
+Columns are missing in payment_icon 
+
+Columns are missing in payment_transaction 
+
+Columns are missing in payment_token 
+
+Columns are missing in account_invoice_transaction_rel 
+
+Columns are missing in payment_acquirer_onboarding_wizard 
+
+Columns are missing in payment_link_wizard 
+
+Columns are missing in payment_acquirer 
+
+Columns are missing in purchase_bill_union 
+
+Columns are missing in account_move_purchase_order_rel 
+
+Columns are missing in account_tax_purchase_order_line_rel 
+
+Columns are missing in account_analytic_tag_purchase_order_line_rel 
+
+Columns are missing in account_invoice_send 
+
+Columns are missing in snailmail_confirm_invoice 
+
+Columns are missing in stock_inventory 
+
+Columns are missing in stock_location 
+
+Columns are missing in stock_return_picking_line 
+
+Columns are missing in purchase_order 
+
+Columns are missing in stock_valuation_layer 
+
+Columns are missing in stock_valuation_layer_revaluation 
+
+Columns are missing in report_stock_quantity 
+
+Columns are missing in confirm_stock_sms 
+
+Columns are missing in stock_picking_sms_rel 
+
+Columns are missing in account_transfer_model 
+
+Columns are missing in account_model_rel 
+
+Columns are missing in account_transfer_model_line 
+
+Columns are missing in account_analytic_account_account_transfer_model_line_rel 
+
+Columns are missing in account_transfer_model_line_res_partner_rel 
+
+Columns are missing in account_bank_statement_import 
+
+Columns are missing in account_bank_statement_import_ir_attachment_rel 
+
+Columns are missing in account_bank_statement_import_journal_creation 
+
+Columns are missing in account_account_exclude_res_currency_provision 
+
+Columns are missing in account_financial_html_report 
+
+Columns are missing in account_report_footnote 
+
+Columns are missing in account_financial_html_report_ir_filters_rel 
+
+Columns are missing in account_financial_html_report_line 
+
+Columns are missing in account_reports_export_wizard 
+
+Columns are missing in dms_acc_rep_export_wizard_format_rel 
+
+Columns are missing in account_reports_export_wizard_format 
+
+Columns are missing in account_multicurrency_revaluation_wizard 
+
+Columns are missing in account_report_manager 
+
+Columns are missing in crm_iap_lead_mining_request 
+
+Columns are missing in crm_iap_lead_industry 
+
+Columns are missing in crm_iap_lead_role 
+
+Columns are missing in crm_iap_lead_seniority 
+
+Columns are missing in crm_iap_lead_helpers 
+
+Columns are missing in crm_iap_lead_mining_request_crm_tag_rel 
+
+Columns are missing in crm_iap_lead_mining_request_res_country_rel 
+
+Columns are missing in crm_iap_lead_mining_request_res_country_state_rel 
+
+Columns are missing in crm_iap_lead_industry_crm_iap_lead_mining_request_rel 
+
+Columns are missing in crm_iap_lead_mining_request_crm_iap_lead_role_rel 
+
+Columns are missing in stock_move 
+
+Columns are missing in purchase_report 
+
+Columns are missing in vendor_delay_report 
+
+Columns are missing in purchase_order_stock_picking_rel 
+
+Columns are missing in purchase_order_line 
+
+Columns are missing in res_config_settings 
+
+Columns are missing in report_all_channels_sales 
+
+Columns are missing in sale_order_line_invoice_rel 
+
+Columns are missing in sale_order_transaction_rel 
+
+Columns are missing in sale_order_tag_rel 
+
+Columns are missing in account_tax_sale_order_line_rel 
+
+Columns are missing in product_template_attribute_value_sale_order_line_rel 
+
+Columns are missing in account_analytic_tag_sale_order_line_rel 
+
+Columns are missing in sale_payment_acquirer_onboarding_wizard 
+
+Columns are missing in sale_advance_payment_inv 
+
+Columns are missing in account_tax_sale_advance_payment_inv_rel 
+
+Columns are missing in sale_order_cancel 
+
+Columns are missing in stock_report 
+
+Columns are missing in crm_lead_website_visitor_rel 
+
+Columns are missing in sale_order 
+
+Columns are missing in account_account 
+
+Columns are missing in sale_order_line 
+
+Columns are missing in account_asset 
+
+Columns are missing in asset_move_line_rel 
+
+Columns are missing in account_analytic_tag_account_asset_rel 
+
+Columns are missing in asset_modify 
+
+Columns are missing in account_asset_pause 
+
+Columns are missing in account_asset_sell 
+
+Columns are missing in coupon_program_sale_order_rel 
+
+Columns are missing in sale_coupon_apply_code 
+
+Columns are missing in account_followup_followup_line 
+
+Columns are missing in sale_order_template 
+
+Columns are missing in sale_order_option 
+
+Columns are missing in sale_order_template_line 
+
+Columns are missing in sale_order_template_option 
+
+Columns are missing in stock_location_route_stock_rules_report_rel 
+
+Columns are missing in website_track 
+
+Columns are missing in crm_quotation_partner 
+
+Columns are missing in website 
+
+Columns are missing in product_image 
+
+Columns are missing in product_ribbon 
+
+Columns are missing in product_public_category 
+
+Columns are missing in product_public_category_product_template_rel 
+
+Columns are missing in product_alternative_rel 
+
+Columns are missing in product_accessory_rel 
+
+Columns are missing in website_sale_extra_field 
+
+Columns are missing in website_sale_payment_acquirer_onboarding_wizard 
+
+Columns are missing in followup_send 
+
+Columns are missing in followup_send_res_partner_rel 
+
+Columns are missing in snailmail_confirm_followup 
+
+Columns are missing in sale_report 
+

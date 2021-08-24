@@ -1,0 +1,354 @@
+-- ALTER TABLE IF EXISTS res_partner DROP CONSTRAINT res_partner_create_uid_fkey;
+-- ALTER TABLE IF EXISTS res_partner
+--   ADD CONSTRAINT res_partner_create_uid_fkey FOREIGN KEY (user_id)
+--   REFERENCES res_users (id) MATCH SIMPLE
+--   ON UPDATE NO ACTION ON DELETE SET NULL DEFERRABLE;
+
+-- ALTER TABLE IF EXISTS res_partner DROP CONSTRAINT res_partner_write_uid_fkey;
+-- ALTER TABLE IF EXISTS res_partner
+--   ADD CONSTRAINT res_partner_write_uid_fkey FOREIGN KEY (user_id)
+--   REFERENCES res_users (id) MATCH SIMPLE
+--   ON UPDATE NO ACTION ON DELETE SET NULL DEFERRABLE;
+
+-- ALTER TABLE IF EXISTS res_partner DROP CONSTRAINT res_partner_user_id_fkey;
+-- ALTER TABLE IF EXISTS res_partner
+--   ADD CONSTRAINT res_partner_user_id_fkey FOREIGN KEY (user_id)
+--   REFERENCES res_users (id) MATCH SIMPLE
+--   ON UPDATE NO ACTION ON DELETE SET NULL DEFERRABLE;
+
+-- ALTER TABLE IF EXISTS res_users DROP CONSTRAINT res_users_partner_id_fkey;
+-- ALTER TABLE IF EXISTS res_users
+--   ADD CONSTRAINT res_users_partner_id_fkey FOREIGN KEY (partner_id) REFERENCES res_partner (id) MATCH SIMPLE
+--   ON UPDATE NO ACTION ON DELETE RESTRICT DEFERRABLE;
+
+-- SET CONSTRAINTS ALL DEFERRED;
+
+-- ALTER TABLE res_partner DISABLE TRIGGER ALL;
+
+-- INSERT INTO res_partner(
+-- 	id,
+-- 	name,
+-- 	company_id,
+-- 	display_name,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date,
+-- 	write_uid,
+-- 	title,
+-- 	parent_id,
+-- 	ref,
+-- 	lang,tz,
+-- 	user_id,
+-- 	vat,
+-- 	website,
+-- 	comment,
+-- 	active,
+-- 	employee,
+-- 	street,
+-- 	street2,
+-- 	zip,
+-- 	city,
+-- 	state_id,
+-- 	country_id,
+-- 	email,
+-- 	phone,
+-- 	mobile,
+-- 	is_company,
+-- 	industry_type,
+-- 	color,
+-- 	partner_share,
+-- 	commercial_partner_id,
+-- 	commercial_company_name,
+-- 	company_name,
+-- )
+-- SELECT 
+-- 	id,
+-- 	name,
+-- 	company_id,
+-- 	display_name,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date,
+-- 	write_uid,
+-- 	title,
+-- 	parent_id,
+-- 	ref,
+-- 	lang,tz,
+-- 	user_id,
+-- 	vat,
+-- 	website,
+-- 	comment,
+-- 	active,
+-- 	employee,
+-- 	street,
+-- 	street2,
+-- 	zip,
+-- 	city,
+-- 	state_id,
+-- 	country_id,
+-- 	email,
+-- 	phone,
+-- 	mobile,
+-- 	is_company,
+-- 	industry_type,
+-- 	color,
+-- 	partner_share,
+-- 	commercial_partner_id,
+-- 	commercial_company_name,
+-- 	company_name,
+-- FROM migrate.res_partner
+-- WHERE NOT EXISTS (SELECT 1 FROM res_partner WHERE id=migrate.res_partner.id);
+
+-- SELECT pg_catalog.setval('res_partner_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner) x;
+
+-- ALTER TABLE res_partner ENABLE TRIGGER ALL;
+
+-- -- Disabling Constraints
+-- ALTER TABLE res_users DISABLE TRIGGER ALL;
+
+-- INSERT INTO res_users(
+-- 	id,
+-- 	active,
+-- 	login,
+-- 	password,
+-- 	company_id,
+-- 	partner_id,
+-- 	signature,
+-- 	action_id,
+-- 	share,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date,
+-- 	write_uid,
+-- )
+-- SELECT
+-- 	id,
+-- 	active,
+-- 	login,
+-- 	password,
+-- 	company_id,
+-- 	partner_id,
+-- 	signature,
+-- 	action_id,
+-- 	share,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date,
+-- 	write_uid,
+-- FROM migrate.res_users 
+-- WHERE NOT EXISTS (SELECT 1 FROM res_users WHERE id=migrate.res_users.id);
+
+-- delete from res_users where login like '%portaltemplate%';
+
+-- ALTER TABLE res_users ENABLE TRIGGER ALL;
+
+-- SELECT pg_catalog.setval('res_users_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_users) x;
+
+
+-- ALTER TABLE res_company DISABLE TRIGGER ALL;
+-- --Deleting Default Company
+-- Delete From res_company;
+
+-- INSERT INTO res_company(
+-- 	id,
+-- 	name,
+-- 	partner_id,
+-- 	currency_id,
+-- 	sequence,
+-- 	create_date,
+-- 	parent_id,
+-- 	report_header,
+-- 	report_footer,
+-- 	logo_web,
+-- 	account_no,
+-- 	email,
+-- 	phone,
+-- 	company_registry,
+-- 	paperformat_id,
+-- 	external_report_layout_id,
+-- 	base_onboarding_company_state,
+-- 	font,
+-- 	primary_color,
+-- 	secondary_color,
+-- 	create_uid,
+-- 	write_uid,
+-- 	write_date
+-- )
+-- SELECT 
+-- 	id,
+-- 	name,
+-- 	partner_id,
+-- 	currency_id,
+-- 	sequence,
+-- 	create_date,
+-- 	parent_id,
+-- 	report_header,
+-- 	report_footer,
+-- 	logo_web,
+-- 	account_no,
+-- 	email,
+-- 	phone,
+-- 	company_registry,
+-- 	paperformat_id,
+-- 	external_report_layout_id,
+-- 	base_onboarding_company_state,
+-- 	font,
+-- 	primary_color,
+-- 	secondary_color,
+-- 	create_uid,
+-- 	write_uid,
+-- 	write_date
+-- FROM migrate.res_company
+-- WHERE NOT EXISTS (SELECT 1 FROM res_company WHERE id=migrate.res_company.id);
+-- SELECT pg_catalog.setval('res_company_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_company) x;
+-- ALTER TABLE res_company ENABLE TRIGGER ALL;
+
+-- --DELETE FROM ir_sequence;
+
+-- INSERT INTO ir_sequence (
+--     id,
+--     name,
+--     code,
+--     implementation,
+--     active,
+--     prefix,
+--     suffix,
+--     number_next,
+--     number_increment,
+--     padding,
+--     company_id,
+--     use_date_range,
+--     create_uid,
+--     create_date,
+--     write_uid,
+--     write_date
+-- )
+-- SELECT
+-- 	id,
+--     name,
+--     code,
+--     implementation,
+--     active,
+--     prefix,
+--     suffix,
+--     number_next,
+--     number_increment,
+--     padding,
+--     company_id,
+--     use_date_range,
+--     create_uid,
+--     create_date,
+--     write_uid,
+--     write_date
+-- FROM migrate.ir_sequence
+-- WHERE NOT EXISTS (SELECT 1 FROM ir_sequence WHERE id=migrate.ir_sequence.id);
+-- SELECT pg_catalog.setval('ir_sequence_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM ir_sequence) x;
+
+
+-- INSERT INTO res_partner_category(
+--     id,
+--     parent_path,
+--     name,
+--     color,
+--     parent_id,
+--     active,
+--     write_uid,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date
+-- )
+-- SELECT
+--     id,
+--     parent_path,
+--     name,
+--     color,
+--     parent_id,
+--     active,
+--     write_uid,
+-- 	create_date,
+-- 	create_uid,
+-- 	write_date
+-- FROM migrate.res_partner_category
+-- WHERE NOT EXISTS (SELECT 1 FROM res_partner_category WHERE id=migrate.res_partner_category.id);
+-- SELECT pg_catalog.setval('res_partner_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_category) x;
+
+-- INSERT INTO res_partner_res_partner_category_rel(
+--     category_id,
+--     partner_id
+-- )
+-- SELECT
+--     category_id,
+--     partner_id
+-- FROM migrate.res_partner_res_partner_category_rel;
+
+-- INSERT INTO res_country_res_country_group_rel(
+-- 	res_country_id,
+-- 	res_country_group_id
+-- )
+-- SELECT
+-- 	res_country_id,
+-- 	res_country_group_id
+-- FROM migrate.res_country_res_country_group_rel;	
+
+-- INSERT INTO res_groups_users_rel(
+-- 	uid, 
+-- 	gid
+-- )
+-- SELECT DISTINCT pru.id, prg.id FROM public.res_groups prg 
+-- 	INNER JOIN migrate.res_groups mrg ON prg.name = mrg.name and COALESCE(prg.comment, '') = COALESCE(mrg.comment, '') 
+-- 	INNER JOIN public.res_users pru ON TRUE 
+-- 	INNER JOIN migrate.res_users mru ON pru.login = mru.login 
+-- 	INNER JOIN migrate.res_groups_users_rel mgu ON mrg.id = mgu.gid AND mru.id = mgu.uid 
+-- WHERE NOT EXISTS (SELECT 1 FROM public.res_groups_users_rel e WHERE e.uid = pru.id AND e.gid = prg.id);
+
+-- INSERT INTO res_company_users_rel(
+--     cid,
+--     user_id
+-- )
+-- SELECT
+--     cid,
+--     user_id
+-- FROM migrate.res_company_users_rel
+-- ON CONFLICT ON CONSTRAINT res_company_users_rel_cid_user_id_key DO NOTHING;
+
+-- INSERT INTO ir_model_data (
+--     module,
+--     name,
+--     model,
+--     res_id,
+--     noupdate,
+--     date_init,
+--     date_update
+-- )
+-- SELECT
+--     module,
+--     name,
+--     model,
+--     res_id,
+--     noupdate,
+--     date_init,
+--     date_update
+-- FROM migrate.ir_model_data
+-- WHERE model IN ('account.account')
+-- ON CONFLICT (module,name) DO NOTHING;
+-- SELECT pg_catalog.setval('ir_model_data_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM ir_model_data) x;
+
+
+-- INSERT INTO ir_attachment 
+-- (
+-- 	create_date, write_date, res_model, write_uid, db_datas,
+-- 	file_size, create_uid, company_id, index_content, type, "public", 
+-- 	store_fname, description, res_field, mimetype, name, url, res_id, 
+-- 	checksum
+-- )
+-- SELECT 
+-- 	create_date, write_date, res_model, write_uid, db_datas,
+-- 	file_size, create_uid, company_id, NULL, type, NULL, 
+-- 	store_fname, description, NULL, NULL, name, url, res_id, 
+-- 	NULL
+-- FROM migrate.ir_attachment
+-- WHERE res_id IS NOT NULL AND res_model IS NOT NULL;
+
+
+--DROP SCHEMA migrate CASCADE;
+
