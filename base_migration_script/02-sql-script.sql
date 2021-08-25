@@ -28,13 +28,6 @@ WHERE NOT EXISTS (SELECT 1 FROM product_attribute WHERE id=migrate.product_attri
 SELECT pg_catalog.setval('product_attribute_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_attribute) x;
 ALTER TABLE product_attribute ENABLE TRIGGER ALL;
 
---ALTER TABLE product_attribute_category DISABLE TRIGGER ALL;
---INSERT INTO product_attribute_category ( id, name, sequence, create_uid, create_date, write_uid, write_date )
---SELECT id, name, sequence, create_uid, create_date, write_uid, write_date FROM migrate.product_attribute_category
---WHERE NOT EXISTS (SELECT 1 FROM product_attribute_category WHERE id=migrate.product_attribute_category.id);
---SELECT pg_catalog.setval('product_attribute_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_attribute_category) x;
---ALTER TABLE product_attribute_category ENABLE TRIGGER ALL;
-
 ALTER TABLE product_attribute_value DISABLE TRIGGER ALL;
 INSERT INTO product_attribute_value ( id, name, sequence, attribute_id, is_custom, html_color, create_uid, create_date, write_uid, write_date )
 SELECT id, name, sequence, attribute_id, is_custom, html_color, create_uid, create_date, write_uid, write_date FROM migrate.product_attribute_value
