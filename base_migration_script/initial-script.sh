@@ -23,7 +23,7 @@ ODOO_SOURCE="$ODOO_DIR/odoo/addons,$ODOO_DIR/odoo/odoo/addons"
 # Change var name to addons_path
 Enterprise="$ODOO_DIR/enterprise-14.0"
 #CUSTOM_ADDONS="$Enterprise,$ODOO_DIR/addons/ReNu14/custom_addons,$ODOO_DIR/addons/ReNu14/custom_addons/field_image_editor,$ODOO_DIR/addons/ReNu14/migrated_oca,$ODOO_DIR/addons/ReNu14/custom_theme,$ODOO_DIR/addons/ReNu14/OCA/crm,$ODOO_DIR/addons/ReNu14/OCA/field-service,$ODOO_DIR/addons/ReNu14/OCA/hr,$ODOO_DIR/addons/ReNu14/OCA/hr-attendance,$ODOO_DIR/addons/ReNu14/OCA/partner-contact,$ODOO_DIR/addons/ReNu14/OCA/product-attribute,$ODOO_DIR/addons/ReNu14/OCA/project,$ODOO_DIR/addons/ReNu14/OCA/server-env,$ODOO_DIR/addons/ReNu14/OCA/social,$ODOO_DIR/addons/ReNu14/OCA/web,$ODOO_DIR/addons/ReNu14/OCA/website,$ODOO_DIR/addons/ReNu14"
-CUSTOM_ADDONS="$Enterprise"
+CUSTOM_ADDONS="$Enterprise,/home/ksolves/odoo-erp/stellar/swinc20619"
 
 echo "Defined Variables List : "
 echo "------------------------------------------------"
@@ -139,10 +139,10 @@ echo "Final Migration Script Execution Done"
 # echo "${result}"
 # echo "End of python column script"
 
-# echo
-# echo "Executing final migration script ..."
-# psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -qf final-sql-script.sql -U $DB_USER $SOURCE_DB_TEST
-# echo "Final Migration Script Execution Done"
+echo
+echo "Executing final migration script ..."
+psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -qf final-sql-script.sql -U $DB_USER $SOURCE_DB_TEST
+echo "Final Migration Script Execution Done"
 
 echo "Drop migrate schema"
 psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -c "DROP SCHEMA migrate CASCADE;" -U $DB_USER $SOURCE_DB_TEST

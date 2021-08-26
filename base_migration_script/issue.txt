@@ -1,0 +1,9 @@
+1- Sales team (online not opening)
+2- Sequence Need to fix PO,SO,Picking,Out etc.
+3- call _compute_picking through server action for PO receipts.
+4- Getting during enable general config setting
+5- delivery_carrier object need to update
+6- stock.picking.stage (New Table) 
+7- field_cghBZ	One2many/Related (products)
+8- field_cghBZ	One2many (Product Template)
+9- field_rghuK	One2many (Product Template)
