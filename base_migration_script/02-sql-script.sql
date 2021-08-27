@@ -369,5 +369,53 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_picking WHERE id=migrate.stock_picking.id)
 SELECT pg_catalog.setval('stock_picking_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_picking) x;
 ALTER TABLE stock_picking ENABLE TRIGGER ALL;
 
+ALTER TABLE stock_picking_stage DISABLE TRIGGER ALL;
+INSERT INTO stock_picking_stage ( id, name) 
+SELECT id,x_name FROM migrate.x_stock_picking_stage 
+WHERE NOT EXISTS (SELECT 1 FROM stock_picking_stage WHERE id=migrate.x_stock_picking_stage.id);
+SELECT pg_catalog.setval('stock_picking_stage_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_picking_stage) x;
+ALTER TABLE stock_picking_stage ENABLE TRIGGER ALL;
+
+ALTER TABLE delivery_carrier DISABLE TRIGGER ALL;
+INSERT INTO delivery_carrier ( id, name, active,invoice_policy, sequence, integration_level, prod_environment, debug_logging, company_id, product_id, zip_from, zip_to, margin, free_over, amount, fixed_price, delivery_type, create_uid, create_date, write_uid, write_date, website_id, is_published ) 
+SELECT id, name, active,'estimated', sequence, integration_level, prod_environment, debug_logging, company_id, product_id, zip_from, zip_to, margin, free_over, amount, fixed_price, delivery_type, create_uid, create_date, write_uid, write_date, website_id, is_published FROM migrate.delivery_carrier 
+WHERE NOT EXISTS (SELECT 1 FROM delivery_carrier WHERE id=migrate.delivery_carrier.id);
+SELECT pg_catalog.setval('delivery_carrier_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM delivery_carrier) x;
+ALTER TABLE delivery_carrier ENABLE TRIGGER ALL;
+
+ALTER TABLE delivery_carrier_country_rel DISABLE TRIGGER ALL;
+INSERT INTO delivery_carrier_country_rel ( carrier_id, country_id ) 
+SELECT carrier_id, country_id FROM migrate.delivery_carrier_country_rel 
+WHERE NOT EXISTS (SELECT 1 FROM delivery_carrier_country_rel WHERE carrier_id=migrate.delivery_carrier_country_rel.carrier_id AND country_id=migrate.delivery_carrier_country_rel.country_id);
+ALTER TABLE delivery_carrier_country_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE delivery_carrier_state_rel DISABLE TRIGGER ALL;
+INSERT INTO delivery_carrier_state_rel ( carrier_id, state_id ) 
+SELECT carrier_id, state_id FROM migrate.delivery_carrier_state_rel 
+WHERE NOT EXISTS (SELECT 1 FROM delivery_carrier_state_rel WHERE carrier_id=migrate.delivery_carrier_state_rel.carrier_id AND state_id=migrate.delivery_carrier_state_rel.state_id);
+ALTER TABLE delivery_carrier_state_rel ENABLE TRIGGER ALL;
+
+
+ALTER TABLE procurement_group DISABLE TRIGGER ALL;
+INSERT INTO procurement_group ( id, partner_id, name, move_type, create_uid, create_date, write_uid, write_date, sale_id ) 
+SELECT id, partner_id, name, move_type, create_uid, create_date, write_uid, write_date, sale_id FROM migrate.procurement_group 
+WHERE NOT EXISTS (SELECT 1 FROM procurement_group WHERE id=migrate.procurement_group.id);
+SELECT pg_catalog.setval('procurement_group_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM procurement_group) x;
+ALTER TABLE procurement_group ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_title DISABLE TRIGGER ALL;
+INSERT INTO res_partner_title ( id, name, shortcut, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, shortcut, create_uid, create_date, write_uid, write_date FROM migrate.res_partner_title 
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_title WHERE id=migrate.res_partner_title.id);
+SELECT pg_catalog.setval('res_partner_title_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_title) x;
+ALTER TABLE res_partner_title ENABLE TRIGGER ALL;
+
+ALTER TABLE product_public_category DISABLE TRIGGER ALL;
+INSERT INTO product_public_category ( id, website_meta_title, website_meta_description, website_meta_keywords, website_meta_og_img, website_id, name, parent_id, sequence, create_uid, create_date, write_uid, write_date ) 
+SELECT id, website_meta_title, website_meta_description, website_meta_keywords, website_meta_og_img, website_id, name, parent_id, sequence, create_uid, create_date, write_uid, write_date FROM migrate.product_public_category 
+WHERE NOT EXISTS (SELECT 1 FROM product_public_category WHERE id=migrate.product_public_category.id);
+SELECT pg_catalog.setval('product_public_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_public_category) x;
+ALTER TABLE product_public_category ENABLE TRIGGER ALL;
+
 
 

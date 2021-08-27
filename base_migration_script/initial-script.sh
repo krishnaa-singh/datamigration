@@ -8,7 +8,7 @@ DB_PORT=5432
 DB_USER="odoo"
 DB_PASSWD="odoo"
 DB_NAME="stellar_pro"
-INIT_MODULES="base,mail,sale_management,sale,crm,website,purchase,accounting,account_accountant,barcode,dashboard,calendar,stock,l10n_ca,website_sale,website_sale_coupon"
+INIT_MODULES="base,mail,sale_management,sale,crm,website,purchase,accounting,account_accountant,barcode,dashboard,calendar,stock,l10n_ca,website_sale,website_sale_coupon,studio_customization,delivery,sale_margin,stock_barcode,stock_account"
 
 ENV_PATH="/home/ksolves/stellar/bin"
 PYTHON_ENV_PATH="${ENV_PATH}/python"
