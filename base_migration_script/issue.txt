@@ -6,3 +6,5 @@
 7- field_cghBZ	One2many (Product Template)
 8- field_rghuK	One2many (Product Template)
 9- Stock valuation layer need to discuss with Harsh.
+10 - Portla users not refelecting on front they present in backend as well
+

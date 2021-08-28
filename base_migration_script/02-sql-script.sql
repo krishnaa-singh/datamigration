@@ -417,5 +417,211 @@ WHERE NOT EXISTS (SELECT 1 FROM product_public_category WHERE id=migrate.product
 SELECT pg_catalog.setval('product_public_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_public_category) x;
 ALTER TABLE product_public_category ENABLE TRIGGER ALL;
 
+-----------Mail
+ALTER TABLE mail_message DISABLE TRIGGER ALL;
+INSERT INTO mail_message ( id, subject, date, body, parent_id, model, res_id, record_name, message_type, subtype_id, mail_activity_type_id, email_from, author_id, no_auto_thread, message_id, reply_to, mail_server_id, moderation_status, moderator_id, email_layout_xmlid, add_sign, create_uid, create_date, write_uid, write_date ) 
+SELECT id, subject, date, body, parent_id, model, res_id, record_name, message_type, subtype_id, mail_activity_type_id, email_from, author_id, no_auto_thread, message_id, reply_to, mail_server_id, moderation_status, moderator_id, layout, add_sign, create_uid, create_date, write_uid, write_date FROM migrate.mail_message 
+WHERE NOT EXISTS (SELECT 1 FROM mail_message WHERE id=migrate.mail_message.id);
+SELECT pg_catalog.setval('mail_message_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_message) x;
+ALTER TABLE mail_message ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_alias DISABLE TRIGGER ALL;
+INSERT INTO mail_alias ( id, alias_name, alias_model_id, alias_user_id, alias_defaults, alias_force_thread_id, alias_parent_model_id, alias_parent_thread_id, alias_contact, create_uid, create_date, write_uid, write_date ) 
+SELECT id, alias_name, alias_model_id, alias_user_id, alias_defaults, alias_force_thread_id, alias_parent_model_id, alias_parent_thread_id, alias_contact, create_uid, create_date, write_uid, write_date FROM migrate.mail_alias 
+WHERE NOT EXISTS (SELECT 1 FROM mail_alias WHERE id=migrate.mail_alias.id);
+SELECT pg_catalog.setval('mail_alias_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_alias) x;
+ALTER TABLE mail_alias ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_followers DISABLE TRIGGER ALL;
+INSERT INTO mail_followers ( id, res_model, res_id, partner_id, channel_id ) 
+SELECT id, res_model, res_id, partner_id, channel_id FROM migrate.mail_followers 
+WHERE NOT EXISTS (SELECT 1 FROM mail_followers WHERE id=migrate.mail_followers.id);
+SELECT pg_catalog.setval('mail_followers_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_followers) x;
+ALTER TABLE mail_followers ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_channel DISABLE TRIGGER ALL;
+INSERT INTO mail_channel ( id, name, channel_type, description, uuid, email_send, public, group_public_id, moderation, moderation_notify, moderation_notify_msg, moderation_guidelines, moderation_guidelines_msg, alias_id, message_main_attachment_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, channel_type, description, uuid, email_send, public, group_public_id, moderation, moderation_notify, moderation_notify_msg, moderation_guidelines, moderation_guidelines_msg, alias_id, message_main_attachment_id, create_uid, create_date, write_uid, write_date FROM migrate.mail_channel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_channel WHERE id=migrate.mail_channel.id);
+SELECT pg_catalog.setval('mail_channel_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_channel) x;
+ALTER TABLE mail_channel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_followers_mail_message_subtype_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_followers_mail_message_subtype_rel ( mail_followers_id, mail_message_subtype_id ) 
+SELECT mail_followers_id, mail_message_subtype_id FROM migrate.mail_followers_mail_message_subtype_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_followers_mail_message_subtype_rel WHERE mail_followers_id=migrate.mail_followers_mail_message_subtype_rel.mail_followers_id AND mail_message_subtype_id=migrate.mail_followers_mail_message_subtype_rel.mail_message_subtype_id);
+ALTER TABLE mail_followers_mail_message_subtype_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE message_attachment_rel DISABLE TRIGGER ALL;
+INSERT INTO message_attachment_rel ( message_id, attachment_id ) 
+SELECT message_id, attachment_id FROM migrate.message_attachment_rel 
+WHERE NOT EXISTS (SELECT 1 FROM message_attachment_rel WHERE message_id=migrate.message_attachment_rel.message_id AND attachment_id=migrate.message_attachment_rel.attachment_id);
+ALTER TABLE message_attachment_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_activity_type DISABLE TRIGGER ALL;
+INSERT INTO mail_activity_type ( id, name, summary, sequence, active, create_uid, delay_count, delay_unit, delay_from, icon, decoration_type, res_model_id, default_next_type_id, force_next, category, create_date, write_uid, write_date ) 
+SELECT id, name, summary, sequence, active, create_uid, delay_count, delay_unit, delay_from, icon, decoration_type, res_model_id, default_next_type_id, force_next, category, create_date, write_uid, write_date FROM migrate.mail_activity_type 
+WHERE NOT EXISTS (SELECT 1 FROM mail_activity_type WHERE id=migrate.mail_activity_type.id);
+SELECT pg_catalog.setval('mail_activity_type_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_activity_type) x;
+ALTER TABLE mail_activity_type ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_message_res_partner_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_message_res_partner_rel ( mail_message_id, res_partner_id ) 
+SELECT mail_message_id, res_partner_id FROM migrate.mail_message_res_partner_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_message_res_partner_rel WHERE mail_message_id=migrate.mail_message_res_partner_rel.mail_message_id AND res_partner_id=migrate.mail_message_res_partner_rel.res_partner_id);
+ALTER TABLE mail_message_res_partner_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_message_mail_channel_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_message_mail_channel_rel ( mail_message_id, mail_channel_id ) 
+SELECT mail_message_id, mail_channel_id FROM migrate.mail_message_mail_channel_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_message_mail_channel_rel WHERE mail_message_id=migrate.mail_message_mail_channel_rel.mail_message_id AND mail_channel_id=migrate.mail_message_mail_channel_rel.mail_channel_id);
+ALTER TABLE mail_message_mail_channel_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_message_res_partner_starred_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_message_res_partner_starred_rel ( mail_message_id, res_partner_id ) 
+SELECT mail_message_id, res_partner_id FROM migrate.mail_message_res_partner_starred_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_message_res_partner_starred_rel WHERE mail_message_id=migrate.mail_message_res_partner_starred_rel.mail_message_id AND res_partner_id=migrate.mail_message_res_partner_starred_rel.res_partner_id);
+ALTER TABLE mail_message_res_partner_starred_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_activity_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_activity_rel ( activity_id, recommended_id ) 
+SELECT activity_id, recommended_id FROM migrate.mail_activity_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_activity_rel WHERE activity_id=migrate.mail_activity_rel.activity_id AND recommended_id=migrate.mail_activity_rel.recommended_id);
+ALTER TABLE mail_activity_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_activity_type_mail_template_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_activity_type_mail_template_rel ( mail_activity_type_id, mail_template_id ) 
+SELECT mail_activity_type_id, mail_template_id FROM migrate.mail_activity_type_mail_template_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_activity_type_mail_template_rel WHERE mail_activity_type_id=migrate.mail_activity_type_mail_template_rel.mail_activity_type_id AND mail_template_id=migrate.mail_activity_type_mail_template_rel.mail_template_id);
+ALTER TABLE mail_activity_type_mail_template_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_template DISABLE TRIGGER ALL;
+INSERT INTO mail_template ( id, name, model_id, model, subject, email_from, use_default_to, email_to, partner_to, email_cc, reply_to, body_html, report_name, report_template, mail_server_id, scheduled_date, auto_delete, ref_ir_act_window, lang, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, model_id, model, subject, email_from, use_default_to, email_to, partner_to, email_cc, reply_to, body_html, report_name, report_template, mail_server_id, scheduled_date, auto_delete, ref_ir_act_window, lang, create_uid, create_date, write_uid, write_date FROM migrate.mail_template 
+WHERE NOT EXISTS (SELECT 1 FROM mail_template WHERE id=migrate.mail_template.id);
+SELECT pg_catalog.setval('mail_template_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_template) x;
+ALTER TABLE mail_template ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_mail_res_partner_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_mail_res_partner_rel ( mail_mail_id, res_partner_id ) 
+SELECT mail_mail_id, res_partner_id FROM migrate.mail_mail_res_partner_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_mail_res_partner_rel WHERE mail_mail_id=migrate.mail_mail_res_partner_rel.mail_mail_id AND res_partner_id=migrate.mail_mail_res_partner_rel.res_partner_id);
+ALTER TABLE mail_mail_res_partner_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_blacklist DISABLE TRIGGER ALL;
+INSERT INTO mail_blacklist ( id, email, active, message_main_attachment_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, email, active, message_main_attachment_id, create_uid, create_date, write_uid, write_date FROM migrate.mail_blacklist 
+WHERE NOT EXISTS (SELECT 1 FROM mail_blacklist WHERE id=migrate.mail_blacklist.id);
+SELECT pg_catalog.setval('mail_blacklist_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_blacklist) x;
+ALTER TABLE mail_blacklist ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_channel_partner DISABLE TRIGGER ALL;
+INSERT INTO mail_channel_partner ( id, partner_id, channel_id, seen_message_id, fold_state, is_minimized, is_pinned, create_uid, create_date, write_uid, write_date ) 
+SELECT id, partner_id, channel_id, seen_message_id, fold_state, is_minimized, is_pinned, create_uid, create_date, write_uid, write_date FROM migrate.mail_channel_partner 
+WHERE NOT EXISTS (SELECT 1 FROM mail_channel_partner WHERE id=migrate.mail_channel_partner.id);
+SELECT pg_catalog.setval('mail_channel_partner_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_channel_partner) x;
+ALTER TABLE mail_channel_partner ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_moderation DISABLE TRIGGER ALL;
+INSERT INTO mail_moderation ( id, email, status, channel_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, email, status, channel_id, create_uid, create_date, write_uid, write_date FROM migrate.mail_moderation 
+WHERE NOT EXISTS (SELECT 1 FROM mail_moderation WHERE id=migrate.mail_moderation.id);
+SELECT pg_catalog.setval('mail_moderation_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_moderation) x;
+ALTER TABLE mail_moderation ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_channel_res_groups_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_channel_res_groups_rel ( mail_channel_id, res_groups_id ) 
+SELECT mail_channel_id, res_groups_id FROM migrate.mail_channel_res_groups_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_channel_res_groups_rel WHERE mail_channel_id=migrate.mail_channel_res_groups_rel.mail_channel_id AND res_groups_id=migrate.mail_channel_res_groups_rel.res_groups_id);
+ALTER TABLE mail_channel_res_groups_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_channel_moderator_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_channel_moderator_rel ( mail_channel_id, res_users_id ) 
+SELECT mail_channel_id, res_users_id FROM migrate.mail_channel_moderator_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_channel_moderator_rel WHERE mail_channel_id=migrate.mail_channel_moderator_rel.mail_channel_id AND res_users_id=migrate.mail_channel_moderator_rel.res_users_id);
+ALTER TABLE mail_channel_moderator_rel ENABLE TRIGGER ALL;
+
+
+ALTER TABLE email_template_attachment_rel DISABLE TRIGGER ALL;
+INSERT INTO email_template_attachment_rel ( email_template_id, attachment_id ) 
+SELECT email_template_id, attachment_id FROM migrate.email_template_attachment_rel 
+WHERE NOT EXISTS (SELECT 1 FROM email_template_attachment_rel WHERE email_template_id=migrate.email_template_attachment_rel.email_template_id AND attachment_id=migrate.email_template_attachment_rel.attachment_id);
+ALTER TABLE email_template_attachment_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_shortcode DISABLE TRIGGER ALL;
+INSERT INTO mail_shortcode ( id, source, substitution, description, create_uid, create_date, write_uid, write_date ) 
+SELECT id, source, substitution, description, create_uid, create_date, write_uid, write_date FROM migrate.mail_shortcode 
+WHERE NOT EXISTS (SELECT 1 FROM mail_shortcode WHERE id=migrate.mail_shortcode.id);
+SELECT pg_catalog.setval('mail_shortcode_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_shortcode) x;
+ALTER TABLE mail_shortcode ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_mail DISABLE TRIGGER ALL;
+INSERT INTO mail_mail ( id, mail_message_id, body_html, headers, notification, email_to, email_cc, state, auto_delete, failure_reason, scheduled_date, create_uid, create_date, write_uid, write_date, fetchmail_server_id ) 
+SELECT id, mail_message_id, body_html, headers, notification, email_to, email_cc, state, auto_delete, failure_reason, scheduled_date, create_uid, create_date, write_uid, write_date, fetchmail_server_id FROM migrate.mail_mail 
+WHERE NOT EXISTS (SELECT 1 FROM mail_mail WHERE id=migrate.mail_mail.id);
+SELECT pg_catalog.setval('mail_mail_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_mail) x;
+ALTER TABLE mail_mail ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_compose_message DISABLE TRIGGER ALL;
+INSERT INTO mail_compose_message ( id, subject, body, parent_id, template_id, layout, add_sign, email_from, author_id, composition_mode, model, res_id, record_name, use_active_domain, active_domain, message_type, subtype_id, mail_activity_type_id, reply_to, no_auto_thread, is_log, notify, auto_delete, auto_delete_message, mail_server_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, subject, body, parent_id, template_id, layout, add_sign, email_from, author_id, composition_mode, model, res_id, record_name, use_active_domain, active_domain, message_type, subtype_id, mail_activity_type_id, reply_to, no_auto_thread, is_log, notify, auto_delete, auto_delete_message, mail_server_id, create_uid, create_date, write_uid, write_date FROM migrate.mail_compose_message 
+WHERE NOT EXISTS (SELECT 1 FROM mail_compose_message WHERE id=migrate.mail_compose_message.id);
+SELECT pg_catalog.setval('mail_compose_message_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_compose_message) x;
+ALTER TABLE mail_compose_message ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_compose_message_ir_attachments_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_compose_message_ir_attachments_rel ( wizard_id, attachment_id ) 
+SELECT wizard_id, attachment_id FROM migrate.mail_compose_message_ir_attachments_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_compose_message_ir_attachments_rel WHERE wizard_id=migrate.mail_compose_message_ir_attachments_rel.wizard_id AND attachment_id=migrate.mail_compose_message_ir_attachments_rel.attachment_id);
+ALTER TABLE mail_compose_message_ir_attachments_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_compose_message_res_partner_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_compose_message_res_partner_rel ( wizard_id, partner_id ) 
+SELECT wizard_id, partner_id FROM migrate.mail_compose_message_res_partner_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_compose_message_res_partner_rel WHERE wizard_id=migrate.mail_compose_message_res_partner_rel.wizard_id AND partner_id=migrate.mail_compose_message_res_partner_rel.partner_id);
+ALTER TABLE mail_compose_message_res_partner_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_resend_cancel DISABLE TRIGGER ALL;
+INSERT INTO mail_resend_cancel ( id, model, create_uid, create_date, write_uid, write_date ) 
+SELECT id, model, create_uid, create_date, write_uid, write_date FROM migrate.mail_resend_cancel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_resend_cancel WHERE id=migrate.mail_resend_cancel.id);
+SELECT pg_catalog.setval('mail_resend_cancel_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_resend_cancel) x;
+ALTER TABLE mail_resend_cancel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_resend_message DISABLE TRIGGER ALL;
+INSERT INTO mail_resend_message ( id, mail_message_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, mail_message_id, create_uid, create_date, write_uid, write_date FROM migrate.mail_resend_message 
+WHERE NOT EXISTS (SELECT 1 FROM mail_resend_message WHERE id=migrate.mail_resend_message.id);
+SELECT pg_catalog.setval('mail_resend_message_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_resend_message) x;
+ALTER TABLE mail_resend_message ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_message_res_partner_needaction_rel_mail_resend_message_rel DISABLE TRIGGER ALL;
+INSERT INTO mail_message_res_partner_needaction_rel_mail_resend_message_rel ( mail_resend_message_id, mail_message_res_partner_needaction_rel_id ) 
+SELECT mail_resend_message_id, mail_message_res_partner_needaction_rel_id FROM migrate.mail_message_res_partner_needaction_rel_mail_resend_message_rel 
+WHERE NOT EXISTS (SELECT 1 FROM mail_message_res_partner_needaction_rel_mail_resend_message_rel WHERE mail_resend_message_id=migrate.mail_message_res_partner_needaction_rel_mail_resend_message_rel.mail_resend_message_id AND mail_message_res_partner_needaction_rel_id=migrate.mail_message_res_partner_needaction_rel_mail_resend_message_rel.mail_message_res_partner_needaction_rel_id);
+ALTER TABLE mail_message_res_partner_needaction_rel_mail_resend_message_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_resend_partner DISABLE TRIGGER ALL;
+INSERT INTO mail_resend_partner ( id, partner_id, resend, resend_wizard_id, message, create_uid, create_date, write_uid, write_date ) 
+SELECT id, partner_id, resend, resend_wizard_id, message, create_uid, create_date, write_uid, write_date FROM migrate.mail_resend_partner 
+WHERE NOT EXISTS (SELECT 1 FROM mail_resend_partner WHERE id=migrate.mail_resend_partner.id);
+SELECT pg_catalog.setval('mail_resend_partner_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_resend_partner) x;
+ALTER TABLE mail_resend_partner ENABLE TRIGGER ALL;
+
+INSERT INTO public.res_groups_users_rel(uid, gid) 
+SELECT DISTINCT pu.id, pg.id FROM public.res_groups pg 
+INNER JOIN migrate.res_groups mg ON pg.name = mg.name and COALESCE(pg.comment, '') = COALESCE(mg.comment, '') 
+INNER JOIN public.res_users pu ON TRUE 
+INNER JOIN migrate.res_users mu ON pu.login = mu.login 
+INNER JOIN migrate.res_groups_users_rel mgu ON mg.id = mgu.gid AND mu.id = mgu.uid 
+WHERE NOT EXISTS (SELECT 1 FROM public.res_groups_users_rel e WHERE e.uid = pu.id AND e.gid = pg.id);
+
+ALTER TABLE res_groups_implied_rel DISABLE TRIGGER ALL;
+INSERT INTO res_groups_implied_rel ( gid, hid ) 
+SELECT gid, hid FROM migrate.res_groups_implied_rel 
+WHERE NOT EXISTS (SELECT 1 FROM res_groups_implied_rel WHERE gid=migrate.res_groups_implied_rel.gid AND hid=migrate.res_groups_implied_rel.hid);
+ALTER TABLE res_groups_implied_rel ENABLE TRIGGER ALL;
+
+
 
 
