@@ -369,12 +369,12 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_picking WHERE id=migrate.stock_picking.id)
 SELECT pg_catalog.setval('stock_picking_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_picking) x;
 ALTER TABLE stock_picking ENABLE TRIGGER ALL;
 
-ALTER TABLE stock_picking_stage DISABLE TRIGGER ALL;
-INSERT INTO stock_picking_stage ( id, name) 
-SELECT id,x_name FROM migrate.x_stock_picking_stage 
-WHERE NOT EXISTS (SELECT 1 FROM stock_picking_stage WHERE id=migrate.x_stock_picking_stage.id);
-SELECT pg_catalog.setval('stock_picking_stage_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_picking_stage) x;
-ALTER TABLE stock_picking_stage ENABLE TRIGGER ALL;
+--ALTER TABLE stock_picking_stage DISABLE TRIGGER ALL;
+--INSERT INTO stock_picking_stage ( id, name)
+--SELECT id,x_name FROM migrate.x_stock_picking_stage
+--WHERE NOT EXISTS (SELECT 1 FROM stock_picking_stage WHERE id=migrate.x_stock_picking_stage.id);
+--SELECT pg_catalog.setval('stock_picking_stage_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_picking_stage) x;
+--ALTER TABLE stock_picking_stage ENABLE TRIGGER ALL;
 
 ALTER TABLE delivery_carrier DISABLE TRIGGER ALL;
 INSERT INTO delivery_carrier ( id, name, active,invoice_policy, sequence, integration_level, prod_environment, debug_logging, company_id, product_id, zip_from, zip_to, margin, free_over, amount, fixed_price, delivery_type, create_uid, create_date, write_uid, write_date, website_id, is_published ) 
@@ -453,8 +453,8 @@ WHERE NOT EXISTS (SELECT 1 FROM mail_followers_mail_message_subtype_rel WHERE ma
 ALTER TABLE mail_followers_mail_message_subtype_rel ENABLE TRIGGER ALL;
 
 ALTER TABLE message_attachment_rel DISABLE TRIGGER ALL;
-INSERT INTO message_attachment_rel ( message_id, attachment_id ) 
-SELECT message_id, attachment_id FROM migrate.message_attachment_rel 
+INSERT INTO message_attachment_rel ( message_id, attachment_id )
+SELECT message_id, attachment_id FROM migrate.message_attachment_rel
 WHERE NOT EXISTS (SELECT 1 FROM message_attachment_rel WHERE message_id=migrate.message_attachment_rel.message_id AND attachment_id=migrate.message_attachment_rel.attachment_id);
 ALTER TABLE message_attachment_rel ENABLE TRIGGER ALL;
 
@@ -623,5 +623,105 @@ WHERE NOT EXISTS (SELECT 1 FROM res_groups_implied_rel WHERE gid=migrate.res_gro
 ALTER TABLE res_groups_implied_rel ENABLE TRIGGER ALL;
 
 
+-----
+--sujata
+-----
+ALTER TABLE account_account_tag DISABLE TRIGGER ALL;
+DELETE FROM account_account_tag;
+INSERT INTO account_account_tag ( id, name, applicability, color, active, create_uid, create_date, write_uid, write_date )
+SELECT id, name, applicability, color, active, create_uid, create_date, write_uid, write_date FROM migrate.account_account_tag
+WHERE NOT EXISTS (SELECT 1 FROM account_account_tag WHERE id=migrate.account_account_tag.id);
+SELECT pg_catalog.setval('account_account_tag_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_account_tag) x;
+ALTER TABLE account_account_tag ENABLE TRIGGER ALL;
+
+ALTER TABLE account_payment_term DISABLE TRIGGER ALL;
+DELETE FROM account_payment_term;
+INSERT INTO account_payment_term ( id, name, active, note, company_id, sequence, create_uid, create_date, write_uid, write_date )
+SELECT id, name, active, note, company_id, sequence, create_uid, create_date, write_uid, write_date FROM migrate.account_payment_term
+WHERE NOT EXISTS (SELECT 1 FROM account_payment_term WHERE id=migrate.account_payment_term.id);
+SELECT pg_catalog.setval('account_payment_term_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_payment_term) x;
+ALTER TABLE account_payment_term ENABLE TRIGGER ALL;
+
+ALTER TABLE account_payment_term_line DISABLE TRIGGER ALL;
+DELETE FROM account_payment_term_line;
+INSERT INTO account_payment_term_line ( id, value, value_amount, days, day_of_the_month, option, payment_id, sequence, create_uid, create_date, write_uid, write_date )
+SELECT id, value, value_amount, days, day_of_the_month, option, payment_id, sequence, create_uid, create_date, write_uid, write_date FROM migrate.account_payment_term_line
+WHERE NOT EXISTS (SELECT 1 FROM account_payment_term_line WHERE id=migrate.account_payment_term_line.id);
+SELECT pg_catalog.setval('account_payment_term_line_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_payment_term_line) x;
+ALTER TABLE account_payment_term_line ENABLE TRIGGER ALL;
+
+ALTER TABLE account_incoterms DISABLE TRIGGER ALL;
+DELETE FROM account_incoterms;
+INSERT INTO account_incoterms ( id, name, code, active, create_uid, create_date, write_uid, write_date )
+SELECT id, name, code, active, create_uid, create_date, write_uid, write_date FROM migrate.account_incoterms
+WHERE NOT EXISTS (SELECT 1 FROM account_incoterms WHERE id=migrate.account_incoterms.id);
+SELECT pg_catalog.setval('account_incoterms_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_incoterms) x;
+ALTER TABLE account_incoterms ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_bank DISABLE TRIGGER ALL;
+DELETE FROM res_partner_bank;
+INSERT INTO res_partner_bank ( id, acc_number, sanitized_acc_number, acc_holder_name, partner_id, bank_id, sequence, currency_id, company_id, create_uid, create_date, write_uid, write_date )
+SELECT id, acc_number, sanitized_acc_number, acc_holder_name, partner_id, bank_id, sequence, currency_id, company_id, create_uid, create_date, write_uid, write_date FROM migrate.res_partner_bank
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_bank WHERE id=migrate.res_partner_bank.id);
+SELECT pg_catalog.setval('res_partner_bank_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_bank) x;
+ALTER TABLE res_partner_bank ENABLE TRIGGER ALL;
+
+ALTER TABLE account_payment DISABLE TRIGGER ALL;
+DELETE FROM account_payment;
+INSERT INTO account_payment ( id, message_main_attachment_id, payment_method_id, amount, payment_type, partner_type, payment_reference, currency_id, partner_id, create_uid, create_date, write_uid, write_date, payment_transaction_id, payment_token_id, move_id)
+SELECT ap.id, ap.message_main_attachment_id, ap.payment_method_id, ap.amount, ap.payment_type, ap.partner_type, ap.payment_reference, ap.currency_id, ap.partner_id, ap.create_uid, ap.create_date, ap.write_uid, ap.write_date, ap.payment_transaction_id, ap.payment_token_id, am.id
+from
+    migrate.account_payment as ap
+inner join
+    migrate.account_move as am on am.name = ap.move_name and NOT EXISTS (SELECT 1 FROM account_payment WHERE id=ap.id);
+SELECT pg_catalog.setval('account_payment_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_payment) x;
+ALTER TABLE account_payment ENABLE TRIGGER ALL;
+
+ALTER TABLE account_payment_method DISABLE TRIGGER ALL;
+DELETE FROM account_payment_method;
+INSERT INTO account_payment_method ( id, name, code, payment_type, create_uid, create_date, write_uid, write_date )
+SELECT id, name, code, payment_type, create_uid, create_date, write_uid, write_date FROM migrate.account_payment_method
+WHERE NOT EXISTS (SELECT 1 FROM account_payment_method WHERE id=migrate.account_payment_method.id);
+SELECT pg_catalog.setval('account_payment_method_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_payment_method) x;
+ALTER TABLE account_payment_method ENABLE TRIGGER ALL;
+
+ALTER TABLE account_move DISABLE TRIGGER ALL;
+INSERT INTO account_move ( id,access_token,name,date,move_type,ref,state,journal_id,company_id,currency_id,partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,amount_residual,amount_untaxed_signed,amount_total_signed,invoice_date,invoice_date_due,invoice_origin,invoice_payment_term_id,invoice_incoterm_id,invoice_source_email,invoice_partner_display_name,invoice_cash_rounding_id,message_main_attachment_id,create_uid,create_date,write_uid,write_date,extract_state,extract_remote_id,campaign_id,source_id,medium_id,team_id,partner_shipping_id
+ )
+SELECT am.id,access_token,am.name,am.date,type,reference,am.state,am.journal_id,am.company_id,am.currency_id,am.partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,residual,amount_untaxed_signed,amount_total_signed,date_invoice,date_due,origin,payment_term_id,incoterm_id,source_email,vendor_display_name,cash_rounding_id,message_main_attachment_id,am.create_uid,am.create_date,am.write_uid,am.write_date,extract_state,extract_remoteid,campaign_id,source_id,medium_id,team_id,partner_shipping_id
+ from
+    migrate.account_invoice as ai
+inner join
+    migrate.account_move as am on am.id = ai.move_id and am.state='posted' and NOT EXISTS (SELECT 1 FROM account_move WHERE id=am.id);
+SELECT pg_catalog.setval('account_move_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_move) x;
+ALTER TABLE account_move ENABLE TRIGGER ALL;
+
+ALTER TABLE account_move DISABLE TRIGGER ALL;
+INSERT INTO account_move ( id,name,date,move_type,ref,state,journal_id,company_id,currency_id,partner_id,commercial_partner_id,create_uid,create_date,write_uid,write_date,extract_state
+ )
+SELECT am.id,am.name,am.date,'entry',am.ref,am.state,am.journal_id,am.company_id,am.currency_id,am.partner_id,am.partner_id,am.create_uid,am.create_date,am.write_uid,am.write_date, 'no_extract_requested'
+ from
+    migrate.account_move as am
+ inner join
+    migrate.account_payment as ap on am.name = ap.move_name and NOT EXISTS (SELECT 1 FROM account_move WHERE id=am.id) and am.state = 'posted';
+SELECT pg_catalog.setval('account_move_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_move) x;
+ALTER TABLE account_move ENABLE TRIGGER ALL;
+
+ALTER TABLE mail_message_subtype DISABLE TRIGGER ALL;
+INSERT INTO mail_message_subtype ( id, name, description, internal, parent_id, relation_field, res_model, sequence, hidden, create_uid, create_date, write_uid, write_date )
+SELECT id, name, description, internal, parent_id, relation_field, res_model, sequence, hidden, create_uid, create_date, write_uid, write_date FROM migrate.mail_message_subtype
+WHERE NOT EXISTS (SELECT 1 FROM mail_message_subtype WHERE id=migrate.mail_message_subtype.id);
+SELECT pg_catalog.setval('mail_message_subtype_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM mail_message_subtype) x;
+ALTER TABLE mail_message_subtype ENABLE TRIGGER ALL;
+
+
+ALTER TABLE account_move_line DISABLE TRIGGER ALL;
+INSERT INTO account_move_line ( id, move_id, date, ref, journal_id, company_id, company_currency_id, account_id, name, quantity, debit, credit, balance, amount_currency, reconciled, blocked, date_maturity, currency_id, partner_id, product_uom_id, product_id, payment_id, statement_line_id, statement_id, tax_line_id, tax_base_amount, tax_exigible, amount_residual, amount_residual_currency, full_reconcile_id, analytic_account_id, create_uid, create_date, write_uid, write_date, expected_pay_date, internal_note, next_action_date, followup_line_id, followup_date )
+SELECT aml.id, aml.move_id, aml.date, aml.ref, aml.journal_id, aml.company_id, aml.company_currency_id, aml.account_id, aml.name, aml.quantity, aml.debit, aml.credit, aml.balance, aml.balance, aml.reconciled, aml.blocked, aml.date_maturity, am.currency_id, aml.partner_id, aml.product_uom_id, aml.product_id, aml.payment_id, aml.statement_line_id, aml.statement_id, aml.tax_line_id, aml.tax_base_amount, aml.tax_exigible, aml.amount_residual, aml.amount_residual_currency, aml.full_reconcile_id, aml.analytic_account_id, aml.create_uid, aml.create_date, aml.write_uid, aml.write_date, aml.expected_pay_date, aml.internal_note, aml.next_action_date, aml.followup_line_id, aml.followup_date
+FROM migrate.account_move_line as aml
+inner join
+    public.account_move as am on am.id = aml.move_id and NOT EXISTS (SELECT 1 FROM account_move_line WHERE id=aml.id);
+SELECT pg_catalog.setval('account_move_line_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_move_line) x;
+ALTER TABLE account_move_line ENABLE TRIGGER ALL;
 
 
