@@ -57,4 +57,4 @@ WHERE public.stock_picking.id=migrate.stock_picking.id;
 
 UPDATE public.stock_warehouse
      SET id = migrate.stock_warehouse.id, name = migrate.stock_warehouse.name FROM migrate.stock_warehouse 
-WHERE public.stock_warehouse.id=migrate.stock_warehouse.id; 
+WHERE public.stock_warehouse.id=migrate.stock_warehouse.id;
