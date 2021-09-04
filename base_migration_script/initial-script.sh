@@ -144,17 +144,27 @@ echo "Executing final migration script ..."
 psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -qf final-sql-script.sql -U $DB_USER $SOURCE_DB_TEST
 echo "Final Migration Script Execution Done"
 
+# #source $ENV_PATH/activate
+# result=$(python $CUR_DIR/final-python-script.py $DB_HOST $DB_USER $DB_PASSWD $DB_PORT $DB_NAME $CUR_DIR $DESTINATION_DB_TEMP)
+# echo "${result}"
+# echo "End of python IR sequence script"
+
+echo
+echo "IR SEQUENCE migration script ..."
+psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -qf ir-sequence-sql-script.sql -U $DB_USER $SOURCE_DB_TEST
+echo "IR SEQUENCE Script Execution Done"
+
 echo "Drop migrate schema"
 psql -h $DB_HOST -p $DB_PORT --set=ON_ERROR_STOP= -1 -c "DROP SCHEMA migrate CASCADE;" -U $DB_USER $SOURCE_DB_TEST
 
 echo "Want to update all Y/N: "
 read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
-	echo "Update all modules into V13 ......"
+	echo "Update all modules into V14 ......"
 	$ODOO --db_host=$DB_HOST --db_port=$DB_PORT -d $SOURCE_DB_TEST -r $DB_USER -w $DB_PASSWD --stop-after-init --without-demo=all --addons-path="$ODOO_SOURCE" --update=all
 
 	$ODOO --db_host=$DB_HOST --db_port=$DB_PORT -d $SOURCE_DB_TEST -r $DB_USER -w $DB_PASSWD --stop-after-init --without-demo=all --addons-path="$ODOO_SOURCE" --update=all
-	echo "Update all Done in V13 ......"
+	echo "Update all Done in V14 ......"
 fi
 
 rm -f migrate.sql.gz

@@ -136,4 +136,29 @@ def get_update_query(table, columns):
     return query
 
 
-get_column_list()
+def get_sequence_list():
+    create_ir_sequence_script()
+
+
+def create_ir_sequence_script():
+    filename = current_dir + '/ir-sequence-sql-script.sql'
+    s_conn = get_source_connection()
+    s_cur = s_conn.cursor()
+    s_cur.execute("""select * from pg_sequences where sequencename ~ '^ir_sequence_0'""")
+    result = s_cur.fetchall()
+    with open(filename, 'w') as file:
+        for seq in result:
+            select_query = """\nSELECT setval('public.%s', %s, true);""" % (seq[1], seq[-1])
+            alter_query = """\nALTER SEQUENCE public.%s
+                                    INCREMENT %s
+                                    START %s
+                                    MINVALUE %s
+                                    MAXVALUE %s
+                                    CACHE %s;""" % (seq[1],seq[7],seq[4],seq[5],seq[6],seq[9])
+            file.write(select_query)
+            file.write(alter_query)
+        file.close()
+
+
+# get_column_list()
+get_sequence_list()
