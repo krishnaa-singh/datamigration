@@ -5,6 +5,24 @@ WHERE NOT EXISTS (SELECT 1 FROM product_product WHERE id=migrate.product_product
 SELECT pg_catalog.setval('product_product_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_product) x;
 ALTER TABLE product_product ENABLE TRIGGER ALL;
 
+ALTER TABLE product_taxes_rel DISABLE TRIGGER ALL;
+INSERT INTO product_taxes_rel ( prod_id, tax_id ) 
+SELECT prod_id, tax_id FROM migrate.product_taxes_rel 
+WHERE NOT EXISTS (SELECT 1 FROM product_taxes_rel WHERE prod_id=migrate.product_taxes_rel.prod_id AND tax_id=migrate.product_taxes_rel.tax_id);
+ALTER TABLE product_taxes_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE product_supplier_taxes_rel DISABLE TRIGGER ALL;
+INSERT INTO product_supplier_taxes_rel ( prod_id, tax_id ) 
+SELECT prod_id, tax_id FROM migrate.product_supplier_taxes_rel 
+WHERE NOT EXISTS (SELECT 1 FROM product_supplier_taxes_rel WHERE prod_id=migrate.product_supplier_taxes_rel.prod_id AND tax_id=migrate.product_supplier_taxes_rel.tax_id);
+ALTER TABLE product_supplier_taxes_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE product_public_category_product_template_rel DISABLE TRIGGER ALL;
+INSERT INTO product_public_category_product_template_rel ( product_template_id, product_public_category_id ) 
+SELECT product_template_id, product_public_category_id FROM migrate.product_public_category_product_template_rel 
+WHERE NOT EXISTS (SELECT 1 FROM product_public_category_product_template_rel WHERE product_template_id=migrate.product_public_category_product_template_rel.product_template_id AND product_public_category_id=migrate.product_public_category_product_template_rel.product_public_category_id);
+ALTER TABLE product_public_category_product_template_rel ENABLE TRIGGER ALL;
+
 ALTER TABLE product_pricelist DISABLE TRIGGER ALL;
 DELETE FROM product_pricelist;
 INSERT INTO product_pricelist ( id, name, active, currency_id, company_id, sequence, discount_policy, website_id,selectable, create_uid, create_date, write_uid, write_date ) 
@@ -133,6 +151,19 @@ WHERE NOT EXISTS (SELECT 1 FROM product_category WHERE id=migrate.product_catego
 SELECT pg_catalog.setval('product_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM product_category) x;
 ALTER TABLE product_category ENABLE TRIGGER ALL;
 
+ALTER TABLE product_alternative_rel DISABLE TRIGGER ALL;
+INSERT INTO product_alternative_rel ( src_id, dest_id ) 
+SELECT src_id, dest_id FROM migrate.product_alternative_rel 
+WHERE NOT EXISTS (SELECT 1 FROM product_alternative_rel WHERE src_id=migrate.product_alternative_rel.src_id AND dest_id=migrate.product_alternative_rel.dest_id);
+ALTER TABLE product_alternative_rel ENABLE TRIGGER ALL;
+
+
+ALTER TABLE product_accessory_rel DISABLE TRIGGER ALL;
+INSERT INTO product_accessory_rel ( src_id, dest_id ) 
+SELECT src_id, dest_id FROM migrate.product_accessory_rel 
+WHERE NOT EXISTS (SELECT 1 FROM product_accessory_rel WHERE src_id=migrate.product_accessory_rel.src_id AND dest_id=migrate.product_accessory_rel.dest_id);
+ALTER TABLE product_accessory_rel ENABLE TRIGGER ALL;
+
 
 ALTER TABLE res_partner DISABLE TRIGGER ALL;
 INSERT INTO res_partner ( id, name, company_id, create_date, display_name, date, title, parent_id, ref, lang, tz, user_id, vat, website, comment, credit_limit, active, employee, function, type, street, street2, zip, city, state_id, country_id, email, phone, mobile, is_company, industry_id, color, partner_share, commercial_partner_id, commercial_company_name, company_name, create_uid, write_uid, write_date, message_main_attachment_id, message_bounce, signup_token, signup_type, signup_expiration, calendar_last_notif_ack, team_id, ocn_token, debit_limit, last_time_entries_checked, invoice_warn, invoice_warn_msg, website_id, is_published, online_partner_vendor_name, online_partner_bank_account, purchase_warn, purchase_warn_msg, sale_warn, sale_warn_msg ) 
@@ -140,6 +171,33 @@ SELECT id, name, company_id, create_date, display_name, date, title, parent_id, 
 WHERE NOT EXISTS (SELECT 1 FROM res_partner WHERE id=migrate.res_partner.id);
 SELECT pg_catalog.setval('res_partner_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner) x;
 ALTER TABLE res_partner ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_category DISABLE TRIGGER ALL;
+INSERT INTO res_partner_category ( id, name, color, parent_id, active, parent_path, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, color, parent_id, active, parent_path, create_uid, create_date, write_uid, write_date FROM migrate.res_partner_category 
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_category WHERE id=migrate.res_partner_category.id);
+SELECT pg_catalog.setval('res_partner_category_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_category) x;
+ALTER TABLE res_partner_category ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_res_partner_category_rel DISABLE TRIGGER ALL;
+INSERT INTO res_partner_res_partner_category_rel ( category_id, partner_id ) 
+SELECT category_id, partner_id FROM migrate.res_partner_res_partner_category_rel 
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_res_partner_category_rel WHERE category_id=migrate.res_partner_res_partner_category_rel.category_id AND partner_id=migrate.res_partner_res_partner_category_rel.partner_id);
+ALTER TABLE res_partner_res_partner_category_rel ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_title DISABLE TRIGGER ALL;
+INSERT INTO res_partner_title ( id, name, shortcut, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, shortcut, create_uid, create_date, write_uid, write_date FROM migrate.res_partner_title 
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_title WHERE id=migrate.res_partner_title.id);
+SELECT pg_catalog.setval('res_partner_title_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_title) x;
+ALTER TABLE res_partner_title ENABLE TRIGGER ALL;
+
+ALTER TABLE res_partner_industry DISABLE TRIGGER ALL;
+INSERT INTO res_partner_industry ( id, name, full_name, active, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, full_name, active, create_uid, create_date, write_uid, write_date FROM migrate.res_partner_industry 
+WHERE NOT EXISTS (SELECT 1 FROM res_partner_industry WHERE id=migrate.res_partner_industry.id);
+SELECT pg_catalog.setval('res_partner_industry_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM res_partner_industry) x;
+ALTER TABLE res_partner_industry ENABLE TRIGGER ALL;
 
 
 ALTER TABLE res_users DISABLE TRIGGER ALL;
@@ -279,6 +337,7 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_move_move_rel WHERE move_orig_id=migrate.s
 ALTER TABLE stock_move_move_rel ENABLE TRIGGER ALL;
 
 ALTER TABLE stock_picking_type DISABLE TRIGGER ALL;
+DELETE FROM stock_picking_type;
 INSERT INTO stock_picking_type ( id, name, color, sequence, sequence_id,sequence_code,company_id, default_location_src_id, default_location_dest_id, code, return_picking_type_id, show_entire_packs, warehouse_id, active, use_create_lots, use_existing_lots, show_operations, show_reserved, barcode, create_uid, create_date, write_uid, write_date )
 SELECT id, name, color, sequence, sequence_id,'OUT',1, default_location_src_id, default_location_dest_id, code, return_picking_type_id, show_entire_packs, warehouse_id, active, use_create_lots, use_existing_lots, show_operations, show_reserved, barcode, create_uid, create_date, write_uid, write_date FROM migrate.stock_picking_type
 WHERE NOT EXISTS (SELECT 1 FROM stock_picking_type WHERE id=migrate.stock_picking_type.id);
@@ -313,6 +372,19 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_quant WHERE id=migrate.stock_quant.id);
 SELECT pg_catalog.setval('stock_quant_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_quant) x;
 ALTER TABLE stock_quant ENABLE TRIGGER ALL;
 
+ALTER TABLE stock_inventory DISABLE TRIGGER ALL;
+INSERT INTO stock_inventory ( id, name, date, state, company_id, exhausted, create_uid, create_date, write_uid, write_date, accounting_date ) 
+SELECT id, name, date, state, company_id, exhausted, create_uid, create_date, write_uid, write_date, accounting_date FROM migrate.stock_inventory 
+WHERE NOT EXISTS (SELECT 1 FROM stock_inventory WHERE id=migrate.stock_inventory.id);
+SELECT pg_catalog.setval('stock_inventory_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_inventory) x;
+ALTER TABLE stock_inventory ENABLE TRIGGER ALL;
+
+ALTER TABLE stock_inventory_line DISABLE TRIGGER ALL;
+INSERT INTO stock_inventory_line ( id, inventory_id, partner_id, product_id, product_uom_id, product_qty, location_id, package_id, prod_lot_id, company_id, theoretical_qty, create_uid, create_date, write_uid, write_date ) 
+SELECT id, inventory_id, partner_id, product_id, product_uom_id, product_qty, location_id, package_id, prod_lot_id, company_id, theoretical_qty, create_uid, create_date, write_uid, write_date FROM migrate.stock_inventory_line 
+WHERE NOT EXISTS (SELECT 1 FROM stock_inventory_line WHERE id=migrate.stock_inventory_line.id);
+SELECT pg_catalog.setval('stock_inventory_line_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_inventory_line) x;
+ALTER TABLE stock_inventory_line ENABLE TRIGGER ALL;
 
 ALTER TABLE stock_scrap DISABLE TRIGGER ALL;
 INSERT INTO stock_scrap ( id, name, company_id, origin, product_id, product_uom_id, lot_id, package_id, owner_id, move_id, picking_id, location_id, scrap_location_id, scrap_qty, state, create_uid, create_date, write_uid, write_date ) 
@@ -347,6 +419,7 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_picking_backorder_rel WHERE stock_backorde
 ALTER TABLE stock_picking_backorder_rel ENABLE TRIGGER ALL;
 
 ALTER TABLE stock_location DISABLE TRIGGER ALL;
+DELETE FROM stock_location;
 INSERT INTO stock_location ( id,name,complete_name,active,usage,location_id,comment,posx,posy,posz,parent_path,company_id,scrap_location,return_location,removal_strategy_id,barcode,create_uid,create_date,write_uid,write_date,valuation_in_account_id
 ,valuation_out_account_id ) 
 SELECT id,name,complete_name,active,usage,location_id,comment,posx,posy,posz,parent_path,company_id,scrap_location,return_location,removal_strategy_id,barcode,create_uid,create_date,write_uid,write_date,valuation_in_account_id
@@ -356,6 +429,7 @@ SELECT pg_catalog.setval('stock_location_id_seq', MAX_NUM, true) FROM (SELECT ma
 ALTER TABLE stock_location ENABLE TRIGGER ALL;
 
 ALTER TABLE stock_warehouse DISABLE TRIGGER ALL;
+DELETE FROM stock_warehouse;
 INSERT INTO stock_warehouse ( id, name, active, company_id, partner_id, view_location_id, lot_stock_id, code, reception_steps, delivery_steps, wh_input_stock_loc_id, wh_qc_stock_loc_id, wh_output_stock_loc_id, wh_pack_stock_loc_id, mto_pull_id, pick_type_id, pack_type_id, out_type_id, in_type_id, int_type_id, crossdock_route_id, reception_route_id, delivery_route_id, create_uid, create_date, write_uid, write_date, buy_to_resupply, buy_pull_id ) 
 SELECT id, name, active, company_id, partner_id, view_location_id, lot_stock_id, code, reception_steps, delivery_steps, wh_input_stock_loc_id, wh_qc_stock_loc_id, wh_output_stock_loc_id, wh_pack_stock_loc_id, mto_pull_id, pick_type_id, pack_type_id, out_type_id, in_type_id, int_type_id, crossdock_route_id, reception_route_id, delivery_route_id, create_uid, create_date, write_uid, write_date, buy_to_resupply, buy_pull_id FROM migrate.stock_warehouse 
 WHERE NOT EXISTS (SELECT 1 FROM stock_warehouse WHERE id=migrate.stock_warehouse.id);
@@ -887,9 +961,9 @@ SELECT pg_catalog.setval('account_payment_method_id_seq', MAX_NUM, true) FROM (S
 ALTER TABLE account_payment_method ENABLE TRIGGER ALL;
 
 ALTER TABLE account_move DISABLE TRIGGER ALL;
-INSERT INTO account_move ( id,access_token,name,date,move_type,ref,state,journal_id,company_id,currency_id,partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,amount_residual,amount_untaxed_signed,amount_total_signed,invoice_date,invoice_date_due,invoice_origin,invoice_payment_term_id,invoice_incoterm_id,invoice_source_email,invoice_partner_display_name,invoice_cash_rounding_id,message_main_attachment_id,create_uid,create_date,write_uid,write_date,extract_state,extract_remote_id,campaign_id,source_id,medium_id,team_id,partner_shipping_id
+INSERT INTO account_move ( id,access_token,mes_id,name,date,move_type,ref,state,journal_id,company_id,currency_id,partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,amount_residual,amount_untaxed_signed,amount_total_signed,invoice_date,invoice_date_due,invoice_origin,invoice_payment_term_id,invoice_incoterm_id,invoice_source_email,invoice_partner_display_name,invoice_cash_rounding_id,message_main_attachment_id,create_uid,create_date,write_uid,write_date,extract_state,extract_remote_id,campaign_id,source_id,medium_id,team_id,partner_shipping_id
  )
-SELECT am.id,access_token,am.name,am.date,type,reference,am.state,am.journal_id,am.company_id,am.currency_id,am.partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,residual,amount_untaxed_signed,amount_total_signed,date_invoice,date_due,origin,payment_term_id,incoterm_id,source_email,vendor_display_name,cash_rounding_id,message_main_attachment_id,am.create_uid,am.create_date,am.write_uid,am.write_date,extract_state,extract_remoteid,campaign_id,source_id,medium_id,team_id,partner_shipping_id
+SELECT am.id,access_token,ai.id,am.name,am.date,type,reference,am.state,am.journal_id,am.company_id,am.currency_id,am.partner_id,commercial_partner_id,partner_bank_id,amount_untaxed,amount_tax,amount_total,residual,amount_untaxed_signed,amount_total_signed,date_invoice,date_due,origin,payment_term_id,incoterm_id,source_email,vendor_display_name,cash_rounding_id,message_main_attachment_id,am.create_uid,am.create_date,am.write_uid,am.write_date,extract_state,extract_remoteid,campaign_id,source_id,medium_id,team_id,partner_shipping_id
  from
     migrate.account_invoice as ai
 inner join
@@ -932,6 +1006,13 @@ inner join
 SELECT pg_catalog.setval('account_move_line_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_move_line) x;
 ALTER TABLE account_move_line ENABLE TRIGGER ALL;
 
+ALTER TABLE account_followup_followup_line DISABLE TRIGGER ALL;
+INSERT INTO account_followup_followup_line ( id,company_id, name, delay, description, send_email, print_letter, manual_action, manual_action_note, manual_action_type_id, manual_action_responsible_id, create_uid, create_date, write_uid, write_date, send_letter ) 
+SELECT id,1, name, delay, description, send_email, print_letter, manual_action, manual_action_note, manual_action_type_id, manual_action_responsible_id, create_uid, create_date, write_uid, write_date, send_letter FROM migrate.account_followup_followup_line 
+WHERE NOT EXISTS (SELECT 1 FROM account_followup_followup_line WHERE id=migrate.account_followup_followup_line.id);
+SELECT pg_catalog.setval('account_followup_followup_line_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_followup_followup_line) x;
+ALTER TABLE account_followup_followup_line ENABLE TRIGGER ALL;
+
 ALTER TABLE account_journal DISABLE TRIGGER ALL;
 DELETE FROM account_journal;
 INSERT INTO account_journal ( id, name, code, active, type, sequence, currency_id, company_id, refund_sequence, at_least_one_inbound, at_least_one_outbound, profit_account_id, loss_account_id, bank_account_id, bank_statements_source, alias_id, show_on_dashboard, color, create_uid, create_date, write_uid, write_date, account_online_journal_id, bank_statement_creation,invoice_reference_type,invoice_reference_model, payment_credit_account_id, payment_debit_account_id, default_account_id)
@@ -955,6 +1036,28 @@ SELECT id, name, type_tax_use, amount_type, active, company_id, sequence, amount
 WHERE NOT EXISTS (SELECT 1 FROM account_tax WHERE id=migrate.account_tax.id);
 SELECT pg_catalog.setval('account_tax_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_tax) x;
 ALTER TABLE account_tax ENABLE TRIGGER ALL;
+
+ALTER TABLE account_tax_group DISABLE TRIGGER ALL;
+DELETE FROM account_tax_group;
+INSERT INTO account_tax_group ( id, name, sequence, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, sequence, create_uid, create_date, write_uid, write_date FROM migrate.account_tax_group 
+WHERE NOT EXISTS (SELECT 1 FROM account_tax_group WHERE id=migrate.account_tax_group.id);
+SELECT pg_catalog.setval('account_tax_group_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_tax_group) x;
+ALTER TABLE account_tax_group ENABLE TRIGGER ALL;
+
+ALTER TABLE account_account_account_tag DISABLE TRIGGER ALL;
+DELETE FROM account_account_account_tag;
+INSERT INTO account_account_account_tag ( account_account_id, account_account_tag_id ) 
+SELECT account_account_id, account_account_tag_id FROM migrate.account_account_account_tag 
+WHERE NOT EXISTS (SELECT 1 FROM account_account_account_tag WHERE account_account_id=migrate.account_account_account_tag.account_account_id AND account_account_tag_id=migrate.account_account_account_tag.account_account_tag_id);
+ALTER TABLE account_account_account_tag ENABLE TRIGGER ALL;
+
+ALTER TABLE account_full_reconcile DISABLE TRIGGER ALL;
+INSERT INTO account_full_reconcile ( id, name, exchange_move_id, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, exchange_move_id, create_uid, create_date, write_uid, write_date FROM migrate.account_full_reconcile 
+WHERE NOT EXISTS (SELECT 1 FROM account_full_reconcile WHERE id=migrate.account_full_reconcile.id);
+SELECT pg_catalog.setval('account_full_reconcile_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_full_reconcile) x;
+ALTER TABLE account_full_reconcile ENABLE TRIGGER ALL;
 
 ALTER TABLE account_move_line_account_tax_rel DISABLE TRIGGER ALL;
 INSERT INTO account_move_line_account_tax_rel ( account_move_line_id, account_tax_id )
@@ -986,6 +1089,5 @@ SELECT id, name, res_id, company_id, fields_id, value_float, value_integer, valu
 WHERE NOT EXISTS (SELECT 1 FROM ir_property WHERE id=migrate.ir_property.id);
 SELECT pg_catalog.setval('ir_property_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM ir_property) x;
 ALTER TABLE ir_property ENABLE TRIGGER ALL;
-
 
 
