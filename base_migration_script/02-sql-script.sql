@@ -436,7 +436,44 @@ WHERE NOT EXISTS (SELECT 1 FROM stock_warehouse WHERE id=migrate.stock_warehouse
 SELECT pg_catalog.setval('stock_warehouse_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_warehouse) x;
 ALTER TABLE stock_warehouse ENABLE TRIGGER ALL;
 
+ALTER TABLE stock_rule DISABLE TRIGGER ALL;
+DELETE FROM stock_rule;
+INSERT INTO stock_rule ( id, name, active, group_propagation_option, group_id, action, sequence, company_id, location_id, location_src_id, route_id, procure_method, route_sequence, picking_type_id, delay, partner_address_id, warehouse_id, propagate_warehouse_id, auto, create_uid, create_date, write_uid, write_date ) 
+SELECT id, name, active, group_propagation_option, group_id, action, sequence, company_id, location_id, location_src_id, route_id, procure_method, route_sequence, picking_type_id, delay, partner_address_id, warehouse_id, propagate_warehouse_id, auto, create_uid, create_date, write_uid, write_date FROM migrate.stock_rule 
+WHERE NOT EXISTS (SELECT 1 FROM stock_rule WHERE id=migrate.stock_rule.id);
+SELECT pg_catalog.setval('stock_rule_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_rule) x;
+ALTER TABLE stock_rule ENABLE TRIGGER ALL;
+
+ALTER TABLE stock_location_route DISABLE TRIGGER ALL;
+DELETE FROM stock_location_route;
+INSERT INTO stock_location_route ( id, name, active, sequence, product_selectable, product_categ_selectable, warehouse_selectable, supplied_wh_id, supplier_wh_id, company_id, create_uid, create_date, write_uid, write_date, sale_selectable ) 
+SELECT id, name, active, sequence, product_selectable, product_categ_selectable, warehouse_selectable, supplied_wh_id, supplier_wh_id, company_id, create_uid, create_date, write_uid, write_date, sale_selectable FROM migrate.stock_location_route 
+WHERE NOT EXISTS (SELECT 1 FROM stock_location_route WHERE id=migrate.stock_location_route.id);
+SELECT pg_catalog.setval('stock_location_route_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM stock_location_route) x;
+ALTER TABLE stock_location_route ENABLE TRIGGER ALL;
+
+ALTER TABLE stock_route_product DISABLE TRIGGER ALL;
+INSERT INTO stock_route_product ( route_id, product_id ) 
+SELECT route_id, product_id FROM migrate.stock_route_product 
+WHERE NOT EXISTS (SELECT 1 FROM stock_route_product WHERE route_id=migrate.stock_route_product.route_id AND product_id=migrate.stock_route_product.product_id);
+ALTER TABLE stock_route_product ENABLE TRIGGER ALL;
+
+ALTER TABLE stock_route_warehouse DISABLE TRIGGER ALL;
+DELETE FROM stock_route_warehouse;
+INSERT INTO stock_route_warehouse ( route_id, warehouse_id ) 
+SELECT route_id, warehouse_id FROM migrate.stock_route_warehouse 
+WHERE NOT EXISTS (SELECT 1 FROM stock_route_warehouse WHERE route_id=migrate.stock_route_warehouse.route_id AND warehouse_id=migrate.stock_route_warehouse.warehouse_id);
+ALTER TABLE stock_route_warehouse ENABLE TRIGGER ALL;
+
+ALTER TABLE stock_location_route_move DISABLE TRIGGER ALL;
+DELETE FROM stock_location_route_move;
+INSERT INTO stock_location_route_move ( move_id, route_id ) 
+SELECT move_id, route_id FROM migrate.stock_location_route_move 
+WHERE NOT EXISTS (SELECT 1 FROM stock_location_route_move WHERE move_id=migrate.stock_location_route_move.move_id AND route_id=migrate.stock_location_route_move.route_id);
+ALTER TABLE stock_location_route_move ENABLE TRIGGER ALL;
+
 ALTER TABLE stock_picking DISABLE TRIGGER ALL;
+DELETE FROM stock_picking;
 INSERT INTO stock_picking ( id, message_main_attachment_id, name, origin, note, backorder_id, move_type, state, group_id, priority, scheduled_date, date, date_done, location_id, location_dest_id, picking_type_id, partner_id, company_id, owner_id, printed, is_locked, immediate_transfer, create_uid, create_date, write_uid, write_date, sale_id ) 
 SELECT id, message_main_attachment_id, name, origin, note, backorder_id, move_type, state, group_id, priority, scheduled_date, date, date_done, location_id, location_dest_id, picking_type_id, partner_id, company_id, owner_id, printed, is_locked, immediate_transfer, create_uid, create_date, write_uid, write_date, sale_id FROM migrate.stock_picking 
 WHERE NOT EXISTS (SELECT 1 FROM stock_picking WHERE id=migrate.stock_picking.id);
@@ -444,6 +481,7 @@ SELECT pg_catalog.setval('stock_picking_id_seq', MAX_NUM, true) FROM (SELECT max
 ALTER TABLE stock_picking ENABLE TRIGGER ALL;
 
 ALTER TABLE stock_picking_stage DISABLE TRIGGER ALL;
+DELETE FROM stock_picking_stage;
 INSERT INTO stock_picking_stage ( id, name)
 SELECT id,x_name FROM migrate.x_stock_picking_stage
 WHERE NOT EXISTS (SELECT 1 FROM stock_picking_stage WHERE id=migrate.x_stock_picking_stage.id);
@@ -451,6 +489,7 @@ SELECT pg_catalog.setval('stock_picking_stage_id_seq', MAX_NUM, true) FROM (SELE
 ALTER TABLE stock_picking_stage ENABLE TRIGGER ALL;
 
 ALTER TABLE delivery_carrier DISABLE TRIGGER ALL;
+DELETE FROM delivery_carrier;
 INSERT INTO delivery_carrier ( id, name, active,invoice_policy, sequence, integration_level, prod_environment, debug_logging, company_id, product_id, zip_from, zip_to, margin, free_over, amount, fixed_price, delivery_type, create_uid, create_date, write_uid, write_date, website_id, is_published ) 
 SELECT id, name, active,'estimated', sequence, integration_level, prod_environment, debug_logging, company_id, product_id, zip_from, zip_to, margin, free_over, amount, fixed_price, delivery_type, create_uid, create_date, write_uid, write_date, website_id, is_published FROM migrate.delivery_carrier 
 WHERE NOT EXISTS (SELECT 1 FROM delivery_carrier WHERE id=migrate.delivery_carrier.id);
