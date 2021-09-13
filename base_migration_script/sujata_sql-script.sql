@@ -360,6 +360,20 @@ WHERE NOT EXISTS (SELECT 1 FROM account_full_reconcile WHERE id=migrate.account_
 SELECT pg_catalog.setval('account_full_reconcile_id_seq', MAX_NUM, true) FROM (SELECT max(id) as MAX_NUM FROM account_full_reconcile) x;
 ALTER TABLE account_full_reconcile ENABLE TRIGGER ALL;
 
+UPDATE public.account_partial_reconcile
+     SET debit_currency_id =  public.account_move_line.currency_id,
+         debit_amount_currency = public.account_move_line.amount_currency
+     FROM migrate.account_partial_reconcile
+     INNER JOIN account_move_line on account_move_line.id = migrate.account_partial_reconcile.debit_move_id
+WHERE public.account_partial_reconcile.id=migrate.account_partial_reconcile.id;
+
+UPDATE public.account_partial_reconcile
+     SET credit_amount_currency =  public.account_move_line.amount_currency,
+         credit_currency_id = public.account_move_line.currency_id
+     FROM migrate.account_partial_reconcile
+     INNER JOIN account_move_line on account_move_line.id = migrate.account_partial_reconcile.credit_move_id
+WHERE public.account_partial_reconcile.id=migrate.account_partial_reconcile.id;
+
 ALTER TABLE account_bank_statement DISABLE TRIGGER ALL;
 INSERT INTO account_bank_statement ( id, message_main_attachment_id, name, reference, date, date_done, balance_start, balance_end_real, state, journal_id, company_id, total_entry_encoding, balance_end, difference, user_id, cashbox_start_id, cashbox_end_id, create_uid, create_date, write_uid, write_date )
 SELECT id, message_main_attachment_id, name, reference, date, date_done, balance_start, balance_end_real, state, journal_id, company_id, total_entry_encoding, balance_end, difference, user_id, cashbox_start_id, cashbox_end_id, create_uid, create_date, write_uid, write_date FROM migrate.account_bank_statement
