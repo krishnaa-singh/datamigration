@@ -39,6 +39,23 @@ def manage_move_lines(self):
 
 def manage_moves(self):
     all_moves = self.env['account.move'].sudo().search([])
+    conn = get_src_connection()
+    cur = conn.cursor()
+    for move in all_moves:
+        cur.execute("""SELECT state FROM account_invoice where move_id=%s""" % move.id)
+        result = cur.fetchall()
+        # print(result)
+        move.payment_id = move.invoice_line_ids.payment_id
+        if result:
+            state = result[0][0]
+            if state == 'open':
+                move.payment_state = 'not_paid'
+                print('open', move.id)
+            elif state == 'paid':
+                # print('cancel', move.id)
+                move.payment_state = 'paid'
+            elif state == 'cancel':
+                pass
     for move in all_moves:
         move._compute_amount()
         move._compute_payments_widget_reconciled_info()
